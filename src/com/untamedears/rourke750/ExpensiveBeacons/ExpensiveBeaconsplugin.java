@@ -14,20 +14,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 
 public class ExpensiveBeaconsplugin extends JavaPlugin{
-	private onListener ls= null;
-	private multiblockstructure ms=null;
-	private SpeedBeacon sb=null;
-	private StoredValues sv=null;
-	private SaveManager sm=null;
+	private onListener ls;
+	private SpeedBeacon sb;
+	private StoredValues sv;
+	private SaveManager sm;
 	public BufferedWriter writer;
-	private Effects ef= new Effects();
+	private Effects ef=null;
 	private File file;
 	public void onEnable(){
+		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+		logger.info("Plugin Enabled, Welcome to Alpha testing!");
+		sv= new StoredValues();
 		String dir= this.getDatabase() +File.separator +"Expensive Beacons"+ File.separator;
 		new File(dir).mkdirs();
 		multiblockstructure ms= new multiblockstructure(this, ls, sb, sv);
 		ls = new onListener(ms);
 		SaveManager sm= new SaveManager(this, sv);
+		Effects ef= new Effects();
 		enableListener();
 		try {
 			File existing= new File(dir+"StoredBeacons.txt");
@@ -47,10 +50,11 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		final Effects eff = ef;
+		final StoredValues svv= sv;
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			public void run(){
-				ef.runEffects(sv.getTypeMap(), sv.getTierMap());
+				eff.runEffects(svv.getTypeMap(), svv.getTierMap());
 			}
 		}, 0, 100);
 	}
@@ -62,7 +66,7 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 			e.printStackTrace();
 		}
 	}
-	public void enableListener(){
+	private void enableListener(){
 		getServer().getPluginManager().registerEvents(ls, this);
 	}
 }

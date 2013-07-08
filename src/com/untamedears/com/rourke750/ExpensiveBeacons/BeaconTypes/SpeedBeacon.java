@@ -2,11 +2,16 @@ package com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes;
 
 
 
+import java.util.logging.Logger;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 
+import com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsplugin;
+
 public class SpeedBeacon {
-	public boolean tier1(Location loc){
+	private int level;
+	public void tier1(Location loc){
 		Location master= loc;
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
@@ -111,12 +116,15 @@ public class SpeedBeacon {
 				}
 			}
 		}
+		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 		if (detector==4){
-			return true;
+			logger.info("Beacon Form was correct");
+			level++;
 		}
-		else {return false;}
+		else {logger.info("Beacon Form was incorrect");
+			}
 	}
-	public boolean tier2(Location loc){
+	public void tier2(Location loc){
 		Location master= loc;
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
@@ -187,11 +195,12 @@ public class SpeedBeacon {
 			}
 		}
 		if (detector==3){
-			return tier1(loc);
+			level++;
+			tier1(loc);
 		}
-		else {return false;}
+		else {}
 	}
-	public boolean tier3(Location loc){
+	public void tier3(Location loc){
 		Location master= loc;
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
@@ -362,11 +371,12 @@ public class SpeedBeacon {
 			}
 		}
 		if (detector==7){
-			return tier2(loc);
+			level++;
+			tier2(loc);
 		}
-		else {return false;}
+		else {}
 	}
-	public boolean tier4(Location loc){
+	public void tier4(Location loc){
 		Location master= loc;
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
@@ -601,11 +611,13 @@ public class SpeedBeacon {
 			}
 		}
 		if (detector==6){
-			return tier3(loc);
+			level++;
+			tier3(loc);
 		}
-		else {return false;}
+		else {}
 	}
-	public boolean tier5(Location loc){
+	public void tier5(Location loc){
+		level=0;
 		Location master= loc;
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
@@ -818,8 +830,12 @@ public class SpeedBeacon {
 			}
 		}
 		if (detector==4){
-			return tier4(loc);
+			level++;
+			tier4(loc);
 		}
-		else{ return false;}
+		else{}
+	}
+	public int getLevel(){
+		return level;
 	}
 }
