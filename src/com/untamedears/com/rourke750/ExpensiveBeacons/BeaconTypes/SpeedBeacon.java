@@ -10,113 +10,135 @@ import org.bukkit.Material;
 import com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsplugin;
 
 public class SpeedBeacon {
-	private int level;
+	private int level=0;
 	public void tier1(Location loc){
-		Location master= loc;
+		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+		Location master= loc.clone();
 		int detector=0;
 		Material block= Material.DIAMOND_BLOCK;
-		loc.setY(-1);
+		loc.setY(loc.getY()-1);
 		Material check=loc.getBlock().getType();
+		logger.info(loc.toString());
 		if (check==block){
-			loc.setX(+1);
+			logger.info("Went through the first if");
+			loc.setX(loc.getX()+1);//
 			check=loc.getBlock().getType();
 			if (check==block){
-				loc.setX(+1);
+				loc.setX(loc.getX()+1);//
 				check=loc.getBlock().getType();
 				if (check==block){
-					loc.setX(+1);
+					loc.setX(loc.getX()+1);//
 					check=loc.getBlock().getType();
 					if (check==block){
-						loc.setX(-1);
-						loc.setZ(+1);
+						loc.setX(loc.getX()-1);
+						loc.setZ(loc.getZ()+1);
 						check=loc.getBlock().getType();
 						if (check==block){
-							loc.setZ(-2);
+							loc.setZ(loc.getZ()-2);//
 							check=loc.getBlock().getType();
 							if (check==block){
 								detector++;
-								loc=master;
-								loc.setX(-1);
+								logger.info("Ending of the if loc "+loc.toVector());
+								loc=master.clone();
+								loc.setY(loc.getY()-1);
+								loc.setX(loc.getX()-1);
 								check=loc.getBlock().getType();
+								logger.info("First check complete\n"+loc.toVector());
+								if (check==block){
+									logger.info("first else if");
+									loc.setX(loc.getX()-1);
+									check=loc.getBlock().getType();
+									if (check==block){
+										logger.info("line 57");
+										loc.setZ(loc.getZ()+1);
+										check=loc.getBlock().getType();
+										if (check==block){
+											logger.info("line 61");
+											loc.setZ(loc.getZ()-2);
+											check=loc.getBlock().getType();
+											if (check==block){
+												logger.info("line 65");
+												loc.setZ(loc.getZ()+1);
+												loc.setX(loc.getX()-1);
+												check=loc.getBlock().getType();
+												if (check==block){
+													logger.info("line 70");
+													detector++;
+													loc=master.clone();
+													loc.setY(loc.getY()-1);
+													loc.setZ(loc.getZ()+1);
+													check=loc.getBlock().getType();
+													logger.info("Second check complete"+loc.toString()+master.toString());
+													if (check==block){ logger.info("line 72");
+														loc.setZ(loc.getZ()+1);
+														check=loc.getBlock().getType();
+														if (check==block){
+															loc.setX(loc.getX()-1);
+															check=loc.getBlock().getType();
+															if (check==block){
+																logger.info("Line 79");
+																loc.setX(loc.getX()+2);
+																check=loc.getBlock().getType();
+																if (check==block){
+																	logger.info("Line 83");
+																	loc.setX(loc.getX()-1);
+																	loc.setZ(loc.getZ()+1);
+																	check=loc.getBlock().getType();
+																	if (check==block){
+																		logger.info("Line 88");
+																		detector++;
+																		loc=master.clone();
+																		loc.setY(loc.getY()-1);
+																		loc.setZ(loc.getZ()-1);
+																		check=loc.getBlock().getType();
+																		logger.info("Third check complete");
+																		if (check==block){
+																			logger.info("line 96");
+																			loc.setZ(loc.getZ()-1);
+																			check=loc.getBlock().getType();
+																			if (check==block){
+																				logger.info("line 100");
+																				loc.setZ(loc.getZ()-1);
+																				check=loc.getBlock().getType();
+																				if (check==block){
+																					logger.info("line 104");
+																					loc.setZ(loc.getZ()+1);
+																					loc.setX(loc.getX()+1);
+																					check=loc.getBlock().getType();
+																					if (check==block){
+																						logger.info("line 109");
+																						loc.setX(loc.getX()-2);
+																						check=loc.getBlock().getType();
+																							if (check==block){
+																								logger.info("line 113");
+																								detector++;
+																								loc=master.clone();
+																								check=loc.getBlock().getType();
+																								logger.info("Fourth check complete");
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}												
+												}
+											}
+										}
+									}
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-		else if (check==block){
-			loc.setX(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setZ(+1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setZ(-2);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setZ(+1);
-						loc.setX(-1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							detector++;
-							loc=master;
-							loc.setZ(+1);
-							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setZ(+1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setX(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(+2);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setX(-1);
-						loc.setZ(+1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							detector++;
-							loc=master;
-							loc.setZ(-1);
-							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setZ(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setZ(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(+1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setX(-2);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setX(+1);
-							loc.setZ(-1);
-							check=loc.getBlock().getType();
-							if (check==block){
-								detector++;
-								loc=master;
-								check=loc.getBlock().getType();
-							}
-						}
-					}
-				}
-			}
-		}
-		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+
+		
+		
 		if (detector==4){
 			logger.info("Beacon Form was correct");
 			level++;
@@ -198,7 +220,7 @@ public class SpeedBeacon {
 			level++;
 			tier1(loc);
 		}
-		else {}
+		else {tier1(loc);}
 	}
 	public void tier3(Location loc){
 		Location master= loc;
@@ -374,7 +396,7 @@ public class SpeedBeacon {
 			level++;
 			tier2(loc);
 		}
-		else {}
+		else {tier2(loc);}
 	}
 	public void tier4(Location loc){
 		Location master= loc;
@@ -614,7 +636,7 @@ public class SpeedBeacon {
 			level++;
 			tier3(loc);
 		}
-		else {}
+		else {tier3(loc);}
 	}
 	public void tier5(Location loc){
 		level=0;
@@ -829,13 +851,18 @@ public class SpeedBeacon {
 				}
 			}
 		}
+		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 		if (detector==4){
+			logger.info("Tier 5 is correct");
 			level++;
 			tier4(loc);
 		}
-		else{}
+		else{
+			logger.info("Tier 5 is incorrect");
+			tier4(loc);}
 	}
-	public int getLevel(){
+	public int getLevel(Location loc){
+		tier1(loc);
 		return level;
 	}
 }

@@ -21,14 +21,15 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 	public BufferedWriter writer;
 	private Effects ef=null;
 	private File file;
+	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	public void onEnable(){
-		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+		SpeedBeacon sb = new SpeedBeacon();
 		logger.info("Plugin Enabled, Welcome to Alpha testing!");
 		sv= new StoredValues();
 		String dir= this.getDatabase() +File.separator +"Expensive Beacons"+ File.separator;
 		new File(dir).mkdirs();
 		multiblockstructure ms= new multiblockstructure(this, ls, sb, sv);
-		ls = new onListener(ms);
+		ls = new onListener(ms, sv);
 		SaveManager sm= new SaveManager(this, sv);
 		Effects ef= new Effects();
 		enableListener();
@@ -54,6 +55,7 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 		final StoredValues svv= sv;
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			public void run(){
+				logger.info("AutoScheduler");
 				eff.runEffects(svv.getTypeMap(), svv.getTierMap());
 			}
 		}, 0, 100);

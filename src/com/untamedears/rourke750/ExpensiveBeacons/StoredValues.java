@@ -27,7 +27,13 @@ private Map<Location, String> tier= new HashMap<Location, String>();
 		type.put(loc, name);
 	}
 	public void setTier(Location loc, String name){
-		tier.put(loc,  name);
+		tier.put(loc, name);
+	}
+	public void removeType(Location loc){
+		type.remove(loc);
+	}
+	public void removeTier(Location loc){
+		tier.remove(loc);
 	}
 
 }

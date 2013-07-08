@@ -3,6 +3,7 @@ package com.untamedears.rourke750.ExpensiveBeacons;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 
@@ -23,8 +24,8 @@ private StoredValues sv=null;
 		logger.info("Check Build is correct");
 		String tier=null;
 		String type=null;
-		sb.tier5(loc);
-		int level= sb.getLevel();
+		int level= sb.getLevel(loc);
+		logger.info("check build level"+ level);
 		if (level==5){
 			tier="five";
 			type="speed";
