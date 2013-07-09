@@ -39,12 +39,10 @@ public class onListener implements Listener{
 			if (rein instanceof PlayerReinforcement) {
 			  groupName = ((PlayerReinforcement)rein).getOwner().getName();
 			}
-			Faction group =Citadel.getGroupManager().getGroup(groupName);
 			logger.info("Setspeedeffects has run");
 			if (groupName == null) {
 				
-				//players are told to reinforce after they place.
-				event.getPlayer().sendMessage("Reinforce the Beacon.");
+				event.getPlayer().sendMessage("Reinforce the Beacon."); //tells players to reinforce the beacon.
 			}
 			multi.checkBuild(loc);
 		}
@@ -53,7 +51,7 @@ public class onListener implements Listener{
 	public void onBlockBreak(BlockBreakEvent event){
 		if(event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc= event.getBlock().getLocation();
-			if(sv.getTier(loc)!=null){
+			if(sv.getTier(loc)!=0){
 				sv.removeTier(loc);
 				sv.removeType(loc);
 			}

@@ -26,7 +26,7 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 		SpeedBeacon sb = new SpeedBeacon();
 		logger.info("Plugin Enabled, Welcome to Alpha testing!");
 		sv= new StoredValues();
-		String dir= this.getDatabase() +File.separator +"Expensive Beacons"+ File.separator;
+		String dir= this.getDataFolder() +File.separator +"Expensive Beacons"+ File.separator;
 		new File(dir).mkdirs();
 		multiblockstructure ms= new multiblockstructure(this, ls, sb, sv);
 		ls = new onListener(ms, sv);
@@ -59,6 +59,18 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 				eff.runEffects(svv.getTypeMap(), svv.getTierMap());
 			}
 		}, 0, 100);
+		final SaveManager smm= sm;
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+			public void run(){
+				logger.info("AutoScheduler");
+				try {
+					smm.save(file);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0, 12000);
 	}
 	public void onDisable(){
 		try {

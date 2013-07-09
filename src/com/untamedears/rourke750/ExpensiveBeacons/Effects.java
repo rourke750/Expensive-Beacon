@@ -25,48 +25,78 @@ import com.untamedears.citadel.entity.PlayerReinforcement;
 public class Effects {
 	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	
-	public void runEffects(Map<Location, String> type, Map<Location, String> tier){
+	public void runEffects(Map<Location, String> type, Map<Location, Integer> tier){
 		logger.info("Effects has run");
 		Collection<String> ty= type.values();
-		Collection<String> ti= tier.values();
+		Collection<Integer> ti= tier.values();
 		for (String run: ty){
 			logger.info(run);
-			for (String run3: ti){
-				logger.info(run3);
+			for (int run3: ti){
+				logger.info(""+run3);
 			for (Location run2: tier.keySet()){
-			if (type.get(run2)==run && run=="speed" && run3=="one"){
+			if (type.get(run2)==run && run=="speed" && run3==1){
 					setSpeedEffects(run2, run3);
 				}
+			if(type.get(run2)==run && run=="speed" && run3==2){
+				setSpeedEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="speed" && run3==3){
+				setSpeedEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="speed" && run3==4){
+				setSpeedEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="speed" && run3==5){
+				setSpeedEffects(run2, run3);
+			}
 			}
 		}
 		}
 	}
 	
-	public void setSpeedEffects(Location loc, String tier){
-		Faction group= groupname(loc);
-		if (tier=="one"){
+	public void setSpeedEffects(Location loc, int tier){
+		
+		int distance = 0, level=0;
+		if (tier==1){
+			distance=20;
+		}
+		if (tier==2){
+			distance=30;
+		}
+		if (tier==3){
+			distance=40;
+		}
+		if (tier==4){
+			distance=50;
+			level=1;
+		}
+		if (tier==5){
+			distance=70;
+			level=1;
+		}
 			logger.info("if tier one has run");
+			Faction group= groupname(loc);
 			for (Player name: Bukkit.getOnlinePlayers()){
-				if (!group.isMember(name.toString()) && !group.isModerator(name.toString()) && !group.isFounder(name.toString())){
+				
+				if (!group.isMember(name.toString()) && !group.isModerator(name.toString()) && !group.isFounder(name.toString()) && !group.isPersonalGroup()){
 					continue;
 				}
 				else {
-				if (loc.distance(name.getLocation())<=20){
+				if (loc.distance(name.getLocation())<=distance){
 					logger.info("Potions has run");
-					name.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, 0));
-				
+					name.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, level));
 			}}}
-		}// end of tier one
-		
 		}
 	
 	public Faction groupname(Location loc){
 		String groupName = null;
+		Faction group=null;
 		IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(loc);
 		if (rein instanceof PlayerReinforcement) {
 		  groupName = ((PlayerReinforcement)rein).getOwner().getName();
+
+			group =Citadel.getGroupManager().getGroup(groupName);
 		}
-		Faction group =Citadel.getGroupManager().getGroup(groupName);
 		logger.info("Setspeedeffects has run");
 		if (groupName == null) {
 			
@@ -74,6 +104,7 @@ public class Effects {
 			return null;
 		}
 		else{
+			logger.info(group.toString());
 			return group;
 		}
 	}

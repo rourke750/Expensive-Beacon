@@ -29,9 +29,9 @@ public class SaveManager {
 		while ((line =br.readLine()) != null){
 			String parts[] =line.split(" ");
 			String type= parts[0];
-			String tier= parts [1];
+			String tier= parts[1];
 			Location loc = new Location(Bukkit.getWorld(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
-			sv.setTier(loc, tier);
+			sv.setTier(loc, Integer.parseInt(tier));
 			sv.setType(loc, type);
 		}
 	}
@@ -44,10 +44,10 @@ public class SaveManager {
 				continue;
 			}
 			String ty= sv.getType(loc);
-			String ti= sv.getTier(loc);
+			int ti= sv.getTier(loc);
 			br.append(ty);
 			br.append(" ");
-			br.append(ti);
+			br.append(Integer.toString(ti));
 			br.append(" ");
 			br.append(loc.getWorld().toString());
 			br.append(" ");

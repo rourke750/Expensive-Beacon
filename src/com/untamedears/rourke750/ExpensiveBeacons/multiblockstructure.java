@@ -19,42 +19,52 @@ private StoredValues sv=null;
 		sb=speed;
 		sv=stored;
 	}
+
+	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	public void checkBuild(Location loc){
-		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+		int levels= sb.getLevel(loc);
+		if (sv.getType(loc)!=null){
+			if (levels!=sv.getTier(loc)){
+				logger.info("This should not of occured");
+				sv.removeTier(loc);
+				sv.removeType(loc);
+			}
+		}
+		else{
 		logger.info("Check Build is correct");
-		String tier=null;
+		int tier=0;
 		String type=null;
-		int level= sb.getLevel(loc);
-		logger.info("check build level"+ level);
-		if (level==5){
-			tier="five";
+		logger.info("check build level"+ levels);
+		if (levels==5){
+			tier=5;
 			type="speed";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}
-		if (level==4){
-			tier="four";
+		if (levels==4){
+			tier=4;
 			type="speed";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}
-		if (level==3){
-			tier="three";
+		if (levels==3){
+			tier=3;
 			type="speed";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}
-		if (level==2){
-			tier="two";
+		if (levels==2){
+			tier=2;
 			type="speed";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}
-		if (level==1){
-			tier="one";
+		if (levels==1){
+			tier=1;
 			type="speed";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}
 	}
+}
 }

@@ -177,45 +177,8 @@ public class SpeedBeacon {
 				}
 			}
 		}
-		else if (check==block){
-				loc.setX(-4);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(+2);
-					loc.setZ(+2);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setZ(-4);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc=master;
-							loc.setY(-4);
-							loc.setX(+3);
-							detector++;
-							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-		else if (check==block){
-			loc.setX(-6);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setX(+3);
-				loc.setZ(+3);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setZ(-6);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc=master;
-						loc.setY(-4);
-						detector++;
-						check=loc.getBlock().getType();
-					}
-				}
-			}
-		}
+		
+		
 		if (detector==3){
 			level++;
 			tier1(loc);
@@ -247,152 +210,155 @@ public class SpeedBeacon {
 							loc.setZ(+3);
 							loc.setX(+3);
 							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setY(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setY(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setY(-1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						detector++;
-						loc=master;
-						loc.setX(-3);
-						loc.setZ(+3);
-						check=loc.getBlock().getType();
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setY(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setY(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setY(-1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						detector++;
-						loc=master;
-						loc.setX(-3);
-						loc.setZ(-3);
-						check=loc.getBlock().getType();
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setY(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setY(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setY(-1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						detector++;
-						loc=master;
-						loc.setX(+3);
-						loc.setZ(+3);
-						loc.setY(-4);
-						check=loc.getBlock().getType();
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setZ(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setZ(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setZ(-2);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setZ(-1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setZ(-1);
-							check=loc.getBlock().getType();
 							if (check==block){
-								loc.setX(+1);
-								detector++;
-								check=loc.getBlock().getType();
-							}
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setX(+1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setX(+2);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(+1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setX(+1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setZ(+1);
-							detector++;
-							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setZ(+1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setZ(+2);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setZ(+1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setZ(+1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setX(-1);
-							check=loc.getBlock().getType();
-							if (check==block){
-								loc.setX(-1);
+								loc.setX(-4);
 								check=loc.getBlock().getType();
 								if (check==block){
-									loc.setX(-2);
+									loc.setX(+2);
+									loc.setZ(+2);
 									check=loc.getBlock().getType();
 									if (check==block){
-										loc.setX(-1);
+										loc.setZ(-4);
 										check=loc.getBlock().getType();
 										if (check==block){
 											loc=master;
+											loc.setY(-4);
+											loc.setX(+3);
 											detector++;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		if (detector==7){
+											check=loc.getBlock().getType();
+											if (check==block){
+												loc.setX(-6);
+												check=loc.getBlock().getType();
+												if (check==block){
+													loc.setX(+3);
+													loc.setZ(+3);
+													check=loc.getBlock().getType();
+													if (check==block){
+														loc.setZ(-6);
+														check=loc.getBlock().getType();
+														if (check==block){
+															loc=master;
+															loc.setY(-4);
+															detector++;
+															check=loc.getBlock().getType();
+															if (check==block){
+																loc.setY(-1);
+																check=loc.getBlock().getType();
+																if (check==block){
+																	loc.setY(-1);
+																	check=loc.getBlock().getType();
+																	if (check==block){
+																		loc.setY(-1);
+																		check=loc.getBlock().getType();
+																		if (check==block){
+																			detector++;
+																			loc=master;
+																			loc.setX(-3);
+																			loc.setZ(+3);
+																			check=loc.getBlock().getType();
+																			if (check==block){
+																				loc.setY(-1);
+																				check=loc.getBlock().getType();
+																				if (check==block){
+																					loc.setY(-1);
+																					check=loc.getBlock().getType();
+																					if (check==block){
+																						loc.setY(-1);
+																						check=loc.getBlock().getType();
+																						if (check==block){
+																							detector++;
+																							loc=master;
+																							loc.setX(-3);
+																							loc.setZ(-3);
+																							check=loc.getBlock().getType();
+																							if (check==block){
+																								loc.setY(-1);
+																								check=loc.getBlock().getType();
+																								if (check==block){
+																									loc.setY(-1);
+																									check=loc.getBlock().getType();
+																									if (check==block){
+																										loc.setY(-1);
+																										check=loc.getBlock().getType();
+																										if (check==block){
+																											detector++;
+																											loc=master;
+																											loc.setX(+3);
+																											loc.setZ(+3);
+																											loc.setY(-4);
+																											check=loc.getBlock().getType();
+																											if (check==block){
+																												loc.setZ(-1);
+																												check=loc.getBlock().getType();
+																												if (check==block){
+																													loc.setZ(-1);
+																													check=loc.getBlock().getType();
+																													if (check==block){
+																														loc.setZ(-2);
+																														check=loc.getBlock().getType();
+																														if (check==block){
+																															loc.setZ(-1);
+																															check=loc.getBlock().getType();
+																															if (check==block){
+																																loc.setZ(-1);
+																																check=loc.getBlock().getType();
+																																if (check==block){
+																																	loc.setX(+1);
+																																	detector++;
+																																	check=loc.getBlock().getType();
+																																	if (check==block){
+																																		loc.setX(+1);
+																																		check=loc.getBlock().getType();
+																																		if (check==block){
+																																			loc.setX(+2);
+																																			check=loc.getBlock().getType();
+																																			if (check==block){
+																																				loc.setX(+1);
+																																				check=loc.getBlock().getType();
+																																				if (check==block){
+																																					loc.setX(+1);
+check=loc.getBlock().getType();
+if (check==block){
+loc.setZ(+1);
+detector++;
+check=loc.getBlock().getType();
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+	if (detector==7){
 			level++;
 			tier2(loc);
 		}
@@ -470,72 +436,19 @@ public class SpeedBeacon {
 								loc.setZ(+3);
 								loc.setX(-3);
 								check=loc.getBlock().getType();
-							}
-						}
-					}
-				}
-			}
-			else if (check==block){
-				loc.setZ(-6);
-				check=loc.getBlock().getType();
-				if(check==block){
-					loc.setX(+6);
-					check=loc.getBlock().getType();
-					if(check==block){
-						loc.setZ(+6);
-						check=loc.getBlock().getType();
-						if(check==block){
-							loc.setY(-1);
-							detector++;
-							check=loc.getBlock().getType();
-						}
-					}
-				}
-			}
-			else if(check==block){
-				loc.setX(-1);
-				check=loc.getBlock().getType();
-				if(check==block){
-					loc.setX(-1);
-					check=loc.getBlock().getType();
-					if(check==block){
-						loc.setX(-1);
-						check=loc.getBlock().getType();
-						if(check==block){
-							loc.setX(-1);
-							check=loc.getBlock().getType();
-							if(check==block){
-								loc.setX(-1);
-								check=loc.getBlock().getType();
-								if(check==block){
-									loc.setX(-1);
+								if (check==block){
+									loc.setZ(-6);
 									check=loc.getBlock().getType();
 									if(check==block){
-										loc.setZ(-1);
+										loc.setX(+6);
 										check=loc.getBlock().getType();
 										if(check==block){
-											loc.setZ(-1);
+											loc.setZ(+6);
 											check=loc.getBlock().getType();
 											if(check==block){
-												loc.setZ(-1);
+												loc.setY(-1);
+												detector++;
 												check=loc.getBlock().getType();
-												if(check==block){
-													loc.setZ(-1);
-													check=loc.getBlock().getType();
-													if(check==block){
-														loc.setZ(-1);
-														check=loc.getBlock().getType();
-														if(check==block){
-															loc.setZ(-1);
-															check=loc.getBlock().getType();
-															if(check==block){
-																loc.setX(+1);
-																detector++;
-																check=loc.getBlock().getType();
-															}
-														}
-													}
-												}
 											}
 										}
 									}
@@ -545,6 +458,7 @@ public class SpeedBeacon {
 					}
 				}
 			}
+			
 			else if (check==block){
 				loc.setX(+1);
 				check=loc.getBlock().getType();
@@ -583,6 +497,96 @@ public class SpeedBeacon {
 															loc.setZ(+3);
 															check=loc.getBlock().getType();
 															detector++;
+															if(check==block){
+																loc.setX(-1);
+																check=loc.getBlock().getType();
+																if(check==block){
+																	loc.setX(-1);
+																	check=loc.getBlock().getType();
+																	if(check==block){
+																		loc.setX(-1);
+																		check=loc.getBlock().getType();
+																		if(check==block){
+																			loc.setX(-1);
+																			check=loc.getBlock().getType();
+																			if(check==block){
+																				loc.setX(-1);
+																				check=loc.getBlock().getType();
+																				if(check==block){
+																					loc.setX(-1);
+																					check=loc.getBlock().getType();
+																					if(check==block){
+																						loc.setZ(-1);
+																						check=loc.getBlock().getType();
+																						if(check==block){
+																							loc.setZ(-1);
+																							check=loc.getBlock().getType();
+																							if(check==block){
+																								loc.setZ(-1);
+																								check=loc.getBlock().getType();
+																								if(check==block){
+																									loc.setZ(-1);
+																									check=loc.getBlock().getType();
+																									if(check==block){
+																										loc.setZ(-1);
+																										check=loc.getBlock().getType();
+																										if(check==block){
+																											loc.setZ(-1);
+																											check=loc.getBlock().getType();
+																											if(check==block){
+																												loc.setX(+1);
+																												detector++;
+																												check=loc.getBlock().getType();
+																												if (check==block){
+																													loc.setY(-1);
+																													check=loc.getBlock().getType();
+																													if(check==block){
+																														loc.setX(-3);
+																														loc.setZ(-3);
+																														check=loc.getBlock().getType();
+																														if(check==block){
+																															loc.setY(+1);
+																															check=loc.getBlock().getType();
+																															if(check==block){
+																																loc.setZ(-3);
+																																loc.setX(+3);
+																																check=loc.getBlock().getType();
+																																if(check==block){
+																																	loc.setY(-1);
+																																	check=loc.getBlock().getType();
+																																	if(check==block){
+																																		loc.setX(+3);
+																																		loc.setZ(+3);
+																																		check=loc.getBlock().getType();
+																																		if(check==block){
+																																			loc.setY(+1);
+																																			check=loc.getBlock().getType();
+																																			if(check==block){
+																																				detector++;
+																																				loc=master;
+																																				loc.setY(-4);
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
 														}
 													}
 												}
@@ -595,44 +599,8 @@ public class SpeedBeacon {
 					}
 				}
 			}
-			else if (check==block){
-				loc.setY(-1);
-				check=loc.getBlock().getType();
-				if(check==block){
-					loc.setX(-3);
-					loc.setZ(-3);
-					check=loc.getBlock().getType();
-					if(check==block){
-						loc.setY(+1);
-						check=loc.getBlock().getType();
-						if(check==block){
-							loc.setZ(-3);
-							loc.setX(+3);
-							check=loc.getBlock().getType();
-							if(check==block){
-								loc.setY(-1);
-								check=loc.getBlock().getType();
-								if(check==block){
-									loc.setX(+3);
-									loc.setZ(+3);
-									check=loc.getBlock().getType();
-									if(check==block){
-										loc.setY(+1);
-										check=loc.getBlock().getType();
-										if(check==block){
-											detector++;
-											loc=master;
-											loc.setY(-4);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		if (detector==6){
+			
+		if (detector==7){
 			level++;
 			tier3(loc);
 		}
@@ -680,108 +648,163 @@ public class SpeedBeacon {
 												loc.setX(-1);
 												detector++;
 												check=loc.getBlock().getType();
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setX(+1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setX(+1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(+1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setX(+1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setZ(-1);
-							check=loc.getBlock().getType();
-							if (check==block){
-								loc.setZ(-1);
-								check=loc.getBlock().getType();
-								if (check==block){
-									loc.setZ(-1);check=loc.getBlock().getType();
-									if (check==block){
-										check=loc.getBlock().getType();
-										if (check==block){
-											loc.setZ(-1);
-											check=loc.getBlock().getType();
-											if (check==block){
-												loc.setX(-1);
-												check=loc.getBlock().getType();
 												if (check==block){
-													loc.setZ(+1);
+													loc.setX(+1);
 													check=loc.getBlock().getType();
 													if (check==block){
-														loc.setZ(+1);
-														check=loc.getBlock().getType();
-														detector++;
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		else if (check==block){
-			loc.setZ(+1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				loc.setX(-1);
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setX(-1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setX(-1);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setZ(-1);
-							check=loc.getBlock().getType();
-							if (check==block){
-								loc.setZ(-1);
-								check=loc.getBlock().getType();
-								if (check==block){
-									loc.setZ(-1);
-									check=loc.getBlock().getType();
-									if (check==block){
-										loc.setX(+1);
-										check=loc.getBlock().getType();
-										if (check==block){
-											loc.setX(+1);
-											check=loc.getBlock().getType();
-											if (check==block){
-												loc.setZ(+1);
-												check=loc.getBlock().getType();
-												if (check==block){
-													loc.setZ(+1);
-													check=loc.getBlock().getType();
-													if (check==block){
-														loc.setX(-1);
+														loc.setX(+1);
 														check=loc.getBlock().getType();
 														if (check==block){
-															loc.setZ(-1);
+															loc.setX(+1);
 															check=loc.getBlock().getType();
 															if (check==block){
-																loc.setZ(-2);
-																loc.setY(-1);
-																loc.setX(-2);
+																loc.setX(+1);
 																check=loc.getBlock().getType();
-																detector++;
+																if (check==block){
+																	loc.setZ(-1);
+																	check=loc.getBlock().getType();
+																	if (check==block){
+																		loc.setZ(-1);
+																		check=loc.getBlock().getType();
+																		if (check==block){
+																			loc.setZ(-1);check=loc.getBlock().getType();
+																			if (check==block){
+																				check=loc.getBlock().getType();
+																				if (check==block){
+																					loc.setZ(-1);
+																					check=loc.getBlock().getType();
+																					if (check==block){
+																						loc.setX(-1);
+																						check=loc.getBlock().getType();
+																						if (check==block){
+																							loc.setZ(+1);
+																							check=loc.getBlock().getType();
+																							if (check==block){
+																								loc.setZ(+1);
+																								check=loc.getBlock().getType();
+																								detector++;
+																								if (check==block){
+																									loc.setZ(+1);
+																									check=loc.getBlock().getType();
+																									if (check==block){
+																										loc.setX(-1);
+																										check=loc.getBlock().getType();
+																										if (check==block){
+																											loc.setX(-1);
+																											check=loc.getBlock().getType();
+																											if (check==block){
+																												loc.setX(-1);
+																												check=loc.getBlock().getType();
+																												if (check==block){
+																													loc.setZ(-1);
+																													check=loc.getBlock().getType();
+																													if (check==block){
+																														loc.setZ(-1);
+																														check=loc.getBlock().getType();
+																														if (check==block){
+																															loc.setZ(-1);
+																															check=loc.getBlock().getType();
+																															if (check==block){
+																																loc.setX(+1);
+																																check=loc.getBlock().getType();
+																																if (check==block){
+																																	loc.setX(+1);
+																																	check=loc.getBlock().getType();
+																																	if (check==block){
+																																		loc.setZ(+1);
+																																		check=loc.getBlock().getType();
+																																		if (check==block){
+																																			loc.setZ(+1);
+																																			check=loc.getBlock().getType();
+																																			if (check==block){
+																																				loc.setX(-1);
+																																				check=loc.getBlock().getType();
+																																				if (check==block){
+																																					loc.setZ(-1);
+																																					check=loc.getBlock().getType();
+																																					if (check==block){
+																																						loc.setZ(-2);
+																																						loc.setY(-1);
+																																						loc.setX(-2);
+																																						check=loc.getBlock().getType();
+																																						detector++;
+																																						if (check==block){
+																																							loc.setY(-1);
+																																							check=loc.getBlock().getType();
+																																							if (check==block){
+																																								check=loc.getBlock().getType();
+																																								if (check==block){
+																																									loc.setY(-1);
+																																									check=loc.getBlock().getType();
+																																									if (check==block){
+																																										loc.setZ(+6);
+																																										check=loc.getBlock().getType();
+																																										if (check==block){
+																																											loc.setY(+1);
+																																											check=loc.getBlock().getType();
+																																											if (check==block){
+																																												loc.setY(+1);
+																																												check=loc.getBlock().getType();
+																																												if (check==block){
+																																													loc.setX(+6);
+																																													check=loc.getBlock().getType();
+																																													if (check==block){
+																																														loc.setY(-1);
+																																														check=loc.getBlock().getType();
+																																														if (check==block){
+																																															check=loc.getBlock().getType();
+																																															if (check==block){
+																																																loc.setY(-1);
+																																																check=loc.getBlock().getType();
+																																																if (check==block){
+																																																	loc.setZ(-6);
+																																																	check=loc.getBlock().getType();
+																																																	if (check==block){
+																																																		loc.setY(+1);
+																																																		check=loc.getBlock().getType();
+																																																		if (check==block){
+																																																			loc.setY(+1);
+																																																			check=loc.getBlock().getType();
+																																																			if (check==block){
+																																																				detector++;
+																																																				loc=master;
+																																																				loc.setY(-3);
+																																																			}
+																																																		}
+																																																	}
+																																																}
+																																															}
+																																														}
+																																													}
+																																												}
+																																											}
+																																										}
+																																									}
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
 															}
 														}
 													}
@@ -796,61 +819,7 @@ public class SpeedBeacon {
 				}
 			}
 		}
-		else if (check==block){
-			loc.setY(-1);
-			check=loc.getBlock().getType();
-			if (check==block){
-				check=loc.getBlock().getType();
-				if (check==block){
-					loc.setY(-1);
-					check=loc.getBlock().getType();
-					if (check==block){
-						loc.setZ(+6);
-						check=loc.getBlock().getType();
-						if (check==block){
-							loc.setY(+1);
-							check=loc.getBlock().getType();
-							if (check==block){
-								loc.setY(+1);
-								check=loc.getBlock().getType();
-								if (check==block){
-									loc.setX(+6);
-									check=loc.getBlock().getType();
-									if (check==block){
-										loc.setY(-1);
-										check=loc.getBlock().getType();
-										if (check==block){
-											check=loc.getBlock().getType();
-											if (check==block){
-												loc.setY(-1);
-												check=loc.getBlock().getType();
-												if (check==block){
-													loc.setZ(-6);
-													check=loc.getBlock().getType();
-													if (check==block){
-														loc.setY(+1);
-														check=loc.getBlock().getType();
-														if (check==block){
-															loc.setY(+1);
-															check=loc.getBlock().getType();
-															if (check==block){
-																detector++;
-																loc=master;
-																loc.setY(-3);
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		
 		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 		if (detector==4){
 			logger.info("Tier 5 is correct");
