@@ -6,30 +6,35 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
+import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
 public class multiblockstructure {
 private onListener ls=null;
 private ExpensiveBeaconsplugin pl=null;
 private SpeedBeacon sb=null;
 private StoredValues sv=null;
+private StrengthBeacon strb;
 	public multiblockstructure(ExpensiveBeaconsplugin plugin, onListener lis,
-			SpeedBeacon speed, StoredValues stored){
+			SpeedBeacon speed, StoredValues stored,StrengthBeacon str){
 		pl=plugin;
 		ls=lis;
 		sb=speed;
 		sv=stored;
+		strb=str;
 	}
 
 	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	public void checkBuild(Location loc){
 		int levels= sb.getLevel(loc);
+		int levelstr= strb.getLevel(loc);
 		if (sv.getType(loc)!=null){
-			if (levels!=sv.getTier(loc)){
+			if (levels!=sv.getTier(loc) || levelstr!=sv.getTier(loc)){
 				logger.info("This should not of occured");
 				sv.removeTier(loc);
 				sv.removeType(loc);
 			}
 		}
+		
 		else{
 		logger.info("Check Build is correct");
 		int tier=0;
@@ -62,6 +67,36 @@ private StoredValues sv=null;
 		if (levels==1){
 			tier=1;
 			type="speed";
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+		}
+		if (levelstr==5){
+			tier=5;
+			type="strength";
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+		}
+		if (levelstr==4){
+			tier=4;
+			type="strength";
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+		}
+		if (levelstr==3){
+			tier=3;
+			type="strength";
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+		}
+		if (levelstr==2){
+			tier=2;
+			type="strength";
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+		}
+		if (levelstr==1){
+			tier=1;
+			type="strength";
 			sv.setTier(loc, tier);
 			sv.setType(loc, type);
 		}

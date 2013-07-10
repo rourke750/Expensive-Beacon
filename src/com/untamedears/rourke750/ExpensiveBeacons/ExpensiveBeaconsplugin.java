@@ -12,8 +12,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
+import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
 public class ExpensiveBeaconsplugin extends JavaPlugin{
+	private StrengthBeacon strb;
 	private onListener ls;
 	private SpeedBeacon sb;
 	private StoredValues sv;
@@ -24,11 +26,12 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	public void onEnable(){
 		SpeedBeacon sb = new SpeedBeacon();
+		StrengthBeacon strb = new StrengthBeacon();
 		logger.info("Plugin Enabled, Welcome to Alpha testing!");
 		sv= new StoredValues();
 		String dir= this.getDataFolder() +File.separator +"Expensive Beacons"+ File.separator;
 		new File(dir).mkdirs();
-		multiblockstructure ms= new multiblockstructure(this, ls, sb, sv);
+		multiblockstructure ms= new multiblockstructure(this, ls, sb, sv, strb);
 		ls = new onListener(ms, sv);
 		SaveManager sm= new SaveManager(this, sv);
 		Effects ef= new Effects();

@@ -27,13 +27,13 @@ public class Effects {
 	
 	public void runEffects(Map<Location, String> type, Map<Location, Integer> tier){
 		logger.info("Effects has run");
+		int run3;
 		Collection<String> ty= type.values();
 		Collection<Integer> ti= tier.values();
 		for (String run: ty){
 			logger.info(run);
-			for (int run3: ti){
-				logger.info(""+run3);
-			for (Location run2: tier.keySet()){
+		for (Location run2: tier.keySet()){
+			run3=tier.get(run2);
 			if (type.get(run2)==run && run=="speed" && run3==1){
 					setSpeedEffects(run2, run3);
 				}
@@ -49,63 +49,116 @@ public class Effects {
 			if(type.get(run2)==run && run=="speed" && run3==5){
 				setSpeedEffects(run2, run3);
 			}
+			if(type.get(run2)==run && run=="strength" && run3==1){
+				setStrengthEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="strength" && run3==2){
+				setStrengthEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="strength" && run3==3){
+				setStrengthEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="strength" && run3==4){
+				setStrengthEffects(run2, run3);
+			}
+			if(type.get(run2)==run && run=="strength" && run3==5){
+				setStrengthEffects(run2, run3);
+			}
 			}
 		}
 		}
-	}
+	
 	
 	public void setSpeedEffects(Location loc, int tier){
 		
-		int distance = 0, level=0;
+		int distance = 20, level=0;
 		if (tier==1){
+			logger.info("LEVEL 1 BEACON");
 			distance=20;
 		}
 		if (tier==2){
+			logger.info("LEVEL 2 BEACON");
 			distance=30;
 		}
 		if (tier==3){
+			logger.info("LEVEL 3 BEACON");
 			distance=40;
 		}
 		if (tier==4){
+			logger.info("LEVEL 4 BEACON");
 			distance=50;
 			level=1;
 		}
 		if (tier==5){
+			logger.info("LEVEL 5 BEACON");
 			distance=70;
 			level=1;
 		}
 			logger.info("if tier one has run");
 			Faction group= groupname(loc);
 			for (Player name: Bukkit.getOnlinePlayers()){
-				
+				if(group == null){
+					logger.info("Group is null"+loc);
+					continue;
+				}
 				if (!group.isMember(name.toString()) && !group.isModerator(name.toString()) && !group.isFounder(name.toString()) && !group.isPersonalGroup()){
+					logger.info("Member is not in a group.");
 					continue;
 				}
 				else {
+					logger.info("Else ran.");
 				if (loc.distance(name.getLocation())<=distance){
 					logger.info("Potions has run");
 					name.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, level));
 			}}}
 		}
+	public void setStrengthEffects(Location loc, int tier){
+		int distance = 20, level=0;
+		if (tier==1){
+			logger.info("LEVEL 1 BEACON");
+			distance=20;
+		}
+		if (tier==2){
+			logger.info("LEVEL 2 BEACON");
+			distance=30;
+		}
+		if (tier==3){
+			logger.info("LEVEL 3 BEACON");
+			distance=40;
+		}
+		if (tier==4){
+			logger.info("LEVEL 4 BEACON");
+			distance=50;
+			level=1;
+		}
+		if (tier==5){
+			logger.info("LEVEL 5 BEACON");
+			distance=70;
+			level=1;
+		}
+		Faction group= groupname(loc);
+		for (Player name: Bukkit.getOnlinePlayers()){
+			if(group == null){
+				logger.info("Group is null"+loc);
+				continue;
+			}
+			if (!group.isMember(name.toString()) && !group.isModerator(name.toString()) && !group.isFounder(name.toString()) && !group.isPersonalGroup()){
+				logger.info("Member is not in a group.");
+				continue;
+			}
+			else {
+			if (loc.distance(name.getLocation())<=distance){
+				name.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1200, level));
+		}}}
+	}
 	
 	public Faction groupname(Location loc){
-		String groupName = null;
-		Faction group=null;
-		IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(loc);
-		if (rein instanceof PlayerReinforcement) {
-		  groupName = ((PlayerReinforcement)rein).getOwner().getName();
+		logger.info("public void faction cords"+loc);
+        IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(loc);
+        if (rein != null && rein instanceof PlayerReinforcement) {
+        	return ((PlayerReinforcement)rein).getOwner();
+        }
+        return null;
+}
 
-			group =Citadel.getGroupManager().getGroup(groupName);
-		}
-		logger.info("Setspeedeffects has run");
-		if (groupName == null) {
-			
-			//players are told to reinforce after they place.
-			return null;
-		}
-		else{
-			logger.info(group.toString());
-			return group;
-		}
-	}
 }

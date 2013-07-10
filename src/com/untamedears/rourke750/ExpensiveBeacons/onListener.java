@@ -14,6 +14,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerInventoryEvent;
+import org.bukkit.inventory.BeaconInventory;
 
 import com.untamedears.citadel.Citadel;
 import com.untamedears.citadel.entity.Faction;
@@ -34,6 +38,7 @@ public class onListener implements Listener{
 		logger.info("Listener is enabled.");
 		if(event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc= event.getBlock().getLocation();
+			logger.info("Cords of block placed"+loc);
 			String groupName = null;
 			IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(loc);
 			if (rein instanceof PlayerReinforcement) {
@@ -51,10 +56,15 @@ public class onListener implements Listener{
 	public void onBlockBreak(BlockBreakEvent event){
 		if(event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc= event.getBlock().getLocation();
-			if(sv.getTier(loc)!=0){
+			if(sv.getType(loc)!=null){
 				sv.removeTier(loc);
 				sv.removeType(loc);
 			}
 		}
+	}
+	@EventHandler(priority= EventPriority.HIGH)
+	public void onPlayerInteract(InventoryOpenEvent event){
+		if (event.getInventory() instanceof 
+				BeaconInventory) event.setCancelled(true);
 	}
 }
