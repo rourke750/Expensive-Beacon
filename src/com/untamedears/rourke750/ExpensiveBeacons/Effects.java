@@ -34,34 +34,36 @@ public class Effects {
 			logger.info(run);
 		for (Location run2: tier.keySet()){
 			run3=tier.get(run2);
-			if (type.get(run2)==run && run=="speed" && run3==1){
+			logger.info(run2+"        "+ run+"          "+ run3);
+			if (type.get(run2).equals(run) && run=="speed" && run3==1){
 					setSpeedEffects(run2, run3);
 				}
-			if(type.get(run2)==run && run=="speed" && run3==2){
+			if(type.get(run2).equals(run) && run=="speed" && run3==2){
+				logger.info("Speed two thingy at line 42 is true");
 				setSpeedEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="speed" && run3==3){
+			if(type.get(run2).equals(run) && run=="speed" && run3==3){
 				setSpeedEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="speed" && run3==4){
+			if(type.get(run2).equals(run) && run=="speed" && run3==4){
 				setSpeedEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="speed" && run3==5){
+			if(type.get(run2).equals(run) && run=="speed" && run3==5){
 				setSpeedEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="strength" && run3==1){
+			if(type.get(run2).equals(run) && run=="strength" && run3==1){
 				setStrengthEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="strength" && run3==2){
+			if(type.get(run2).equals(run) && run=="strength" && run3==2){
 				setStrengthEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="strength" && run3==3){
+			if(type.get(run2).equals(run) && run=="strength" && run3==3){
 				setStrengthEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="strength" && run3==4){
+			if(type.get(run2).equals(run) && run=="strength" && run3==4){
 				setStrengthEffects(run2, run3);
 			}
-			if(type.get(run2)==run && run=="strength" && run3==5){
+			if(type.get(run2).equals(run) && run=="strength" && run3==5){
 				setStrengthEffects(run2, run3);
 			}
 			}
@@ -70,28 +72,28 @@ public class Effects {
 	
 	
 	public void setSpeedEffects(Location loc, int tier){
-		
-		int distance = 20, level=0;
+		logger.info("SetSpeed has run");
+		int distance = 0, level=0;
 		if (tier==1){
 			logger.info("LEVEL 1 BEACON");
-			distance=20;
+			distance=30;
 		}
 		if (tier==2){
 			logger.info("LEVEL 2 BEACON");
-			distance=30;
+			distance=55;
 		}
 		if (tier==3){
 			logger.info("LEVEL 3 BEACON");
-			distance=40;
+			distance=72;
 		}
 		if (tier==4){
 			logger.info("LEVEL 4 BEACON");
-			distance=50;
+			distance=80;
 			level=1;
 		}
 		if (tier==5){
 			logger.info("LEVEL 5 BEACON");
-			distance=70;
+			distance=100;
 			level=1;
 		}
 			logger.info("if tier one has run");

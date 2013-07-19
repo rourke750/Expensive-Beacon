@@ -841,7 +841,7 @@ public class SpeedBeacon {
 																																												if (check==block){
 																																													loc.setX(loc.getX()+6);
 																																													check=loc.getBlock().getType();
-																																													if (check==block){
+																															                                                        if (check==block){
 																																														loc.setY(loc.getY()-1);
 																																														check=loc.getBlock().getType();
 																																														if (check==block){

@@ -42,8 +42,9 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 				Logger.getLogger(ExpensiveBeaconsplugin.class.getName()).log(Level.INFO, "Existing file", "");
 				FileWriter fw = new FileWriter(existing.getAbsoluteFile(), true);
                 writer = new BufferedWriter(fw);
-                sm.load(existing);
                 file=existing;
+                logger.info("Logger pre load occured.");
+                sm.load(file);
 			}
 			else {
 				Logger.getLogger(ExpensiveBeaconsplugin.class.getName()).log(Level.INFO, "Making a new file", "");
@@ -55,11 +56,11 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 			e.printStackTrace();
 		}
 		final Effects eff = ef;
-		final StoredValues svv= sv;
+		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			public void run(){
 				logger.info("AutoScheduler");
-				eff.runEffects(svv.getTypeMap(), svv.getTierMap());
+				eff.runEffects(sv.getTypeMap(), sv.getTierMap());
 			}
 		}, 0, 100);
 		final SaveManager smm= sm;
@@ -73,11 +74,12 @@ public class ExpensiveBeaconsplugin extends JavaPlugin{
 					e.printStackTrace();
 				}
 			}
-		}, 0, 12000);
+		}, 0, 300);
 	}
 	public void onDisable(){
+		final SaveManager smm= sm;
 		try {
-			sm.save(file);
+			smm.save(file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

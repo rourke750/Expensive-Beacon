@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
 public class SaveManager {
+	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
 	private ExpensiveBeaconsplugin pl=null;
 	private StoredValues sv=null;
 	public SaveManager(ExpensiveBeaconsplugin plugin, StoredValues stored){
@@ -23,17 +25,20 @@ public class SaveManager {
 	}
 	
 	public void load(File file) throws IOException{
+		logger.info("load occured");
 		FileInputStream fis = new FileInputStream(file);
 		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 		String line;
-		while ((line =br.readLine()) != null){
+		while ((line=br.readLine()) != null){
 			String parts[] =line.split(" ");
 			String type= parts[0];
 			String tier= parts[1];
 			Location loc = new Location(Bukkit.getWorld(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
 			sv.setTier(loc, Integer.parseInt(tier));
 			sv.setType(loc, type);
+			logger.info("Load finished");
 		}
+		fis.close();
 	}
 	
 	public void save(File file) throws IOException{
@@ -49,7 +54,7 @@ public class SaveManager {
 			br.append(" ");
 			br.append(Integer.toString(ti));
 			br.append(" ");
-			br.append(loc.getWorld().toString());
+			br.append(loc.getWorld().getName());
 			br.append(" ");
 			br.append(String.valueOf(loc.getBlockX()));
 			br.append(" ");
@@ -57,6 +62,7 @@ public class SaveManager {
 			br.append(" ");
 			br.append(String.valueOf(loc.getBlockZ()));
 			br.append("\n");
+			
 		}
 		br.flush();
 		fos.close();
