@@ -50,12 +50,19 @@ public class BeaconListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onBlockBreak(BlockBreakEvent event) {
-		if (event.getBlock().getType().equals(Material.BEACON)) {
-			Location loc = event.getBlock().getLocation();
-			if (sv.getType(loc) != null) {
+		public void onBlockBreak(BlockBreakEvent event){
+		if(event.getBlock().getType().equals(Material.BEACON)) {
+			Location loc= event.getBlock().getLocation();
+			if(sv.getType(loc)!=null){
 				sv.removeTier(loc);
 				sv.removeType(loc);
+			}
+		}
+		if (event.getBlock().getType()==Material.DIAMOND_BLOCK){
+			for (Location loc: sv.getTypeMap().keySet()){
+		if (event.getBlock().getLocation().distance(loc)<=50){
+			multi.checkBuild(loc);
+				}
 			}
 		}
 	}
