@@ -3,18 +3,17 @@ package com.untamedears.rourke750.ExpensiveBeacons;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
-import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
-import com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
+import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
+import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
-public class multiblockstructure {
-private onListener ls=null;
+public class MultiBlockStructure {
+private BeaconListener ls=null;
 private ExpensiveBeaconsplugin pl=null;
 private SpeedBeacon sb=null;
 private StoredValues sv=null;
 private StrengthBeacon strb;
-	public multiblockstructure(ExpensiveBeaconsplugin plugin, onListener lis,
+	public MultiBlockStructure(ExpensiveBeaconsplugin plugin, BeaconListener lis,
 			SpeedBeacon speed, StoredValues stored,StrengthBeacon str){
 		pl=plugin;
 		ls=lis;

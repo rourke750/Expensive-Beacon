@@ -24,10 +24,10 @@ import com.untamedears.citadel.entity.Faction;
 import com.untamedears.citadel.entity.IReinforcement;
 import com.untamedears.citadel.entity.PlayerReinforcement;
 
-public class onListener implements Listener{
-	private multiblockstructure multi;
+public class BeaconListener implements Listener{
+	private MultiBlockStructure multi;
 	private StoredValues sv;
-	public onListener(multiblockstructure plugin, StoredValues store){
+	public BeaconListener(MultiBlockStructure plugin, StoredValues store){
 		multi=plugin;
 		sv= store;
 	}

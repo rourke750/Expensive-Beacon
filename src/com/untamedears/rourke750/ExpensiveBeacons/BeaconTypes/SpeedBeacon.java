@@ -1,4 +1,4 @@
-package com.untamedears.com.rourke750.ExpensiveBeacons.BeaconTypes;
+package com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes;
 
 
 
