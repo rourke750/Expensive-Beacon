@@ -100,6 +100,12 @@ public class MultiBlockStructure {
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
+			if (tier==0){
+			if (sv.getType(loc)!=null){
+				sv.removeTier(loc);
+				sv.removeType(loc);
+				}
+			}
 		}
 	}
 }
