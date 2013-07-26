@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,7 +45,6 @@ public class SaveManager {
 	public void save(File file) throws IOException {
 		FileOutputStream fos = new FileOutputStream(file);
 		BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fos));
-		;
 		for (Location loc : sv.getTypeMap().keySet()) {
 			if (loc.getBlock().getType() != Material.BEACON) {
 				continue;
@@ -68,4 +68,5 @@ public class SaveManager {
 		br.flush();
 		fos.close();
 	}
+	
 }

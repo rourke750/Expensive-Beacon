@@ -21,7 +21,6 @@ public class StaticBeaconStructure implements BeaconStructure {
 	public boolean matches(Beacon beacon) {
 		for(RelativeBlock rBlock : blocks.keySet()) {
 			MaterialData data = blocks.get(rBlock);
-			
 			Block block = rBlock.getRelativeTo(beacon.getBlock());
 			
 			if(block.getTypeId() != data.getItemTypeId() || block.getData() != data.getData()) {

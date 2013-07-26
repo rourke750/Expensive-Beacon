@@ -3,6 +3,8 @@ package com.untamedears.rourke750.ExpensiveBeacons;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
+import org.bukkit.block.Beacon;
+import org.bukkit.block.Block;
 
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
@@ -10,91 +12,105 @@ import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 public class MultiBlockStructure {
 	private BeaconListener ls = null;
 	private ExpensiveBeaconsPlugin pl = null;
-	private SpeedBeacon sb = null;
 	private StoredValues sv = null;
 	private StrengthBeacon strb;
+	
 
-	public MultiBlockStructure(ExpensiveBeaconsPlugin plugin, BeaconListener lis, SpeedBeacon speed, StoredValues stored, StrengthBeacon str) {
+	private StaticBeaconStructure sb1 = null;
+	private StaticBeaconStructure sb2 = null;
+	private StaticBeaconStructure sb3 = null;
+	private StaticBeaconStructure sb4 = null;
+	private StaticBeaconStructure sb5 = null;
+	private StaticBeaconStructure str1=null;
+	private StaticBeaconStructure str2=null;
+	private StaticBeaconStructure str3=null;
+	private StaticBeaconStructure str4=null;
+	private StaticBeaconStructure str5=null;
+	
+	public MultiBlockStructure(ExpensiveBeaconsPlugin plugin, BeaconListener lis, StoredValues stored,
+			StaticBeaconStructure speed1, StaticBeaconStructure speed2, StaticBeaconStructure speed3,
+			StaticBeaconStructure speed4, StaticBeaconStructure speed5, StaticBeaconStructure strength1,
+			StaticBeaconStructure strength2, StaticBeaconStructure strength3, StaticBeaconStructure strength4,
+			StaticBeaconStructure strength5) {
 		pl = plugin;
 		ls = lis;
-		sb = speed;
+		sb1 = speed1;
+		sb2 = speed2;
+		sb3 = speed3;
+		sb4 = speed4;
+		sb5 = speed5;
+		str1 =strength1;
+		str2 =strength2;
+		str3 =strength3;
+		str4 =strength4;
+		str5 =strength5;
 		sv = stored;
-		strb = str;
 	}
 
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 
 	public void checkBuild(Location loc) {
-		int levels = sb.getLevel(loc);
-		int levelstr = strb.getLevel(loc);
-		if (sv.getType(loc) != null) {
-			if (levels != sv.getTier(loc) || levelstr != sv.getTier(loc)) {
-				logger.info("This should not have occured");
-				sv.removeTier(loc);
-				sv.removeType(loc);
-			}
-		}
+		int tier = 0;
+		String type;
+		Block block=loc.getBlock();
+		
 
-		else {
-			logger.info("Check Build is correct");
-			int tier = 0;
-			String type = null;
-			logger.info("check build level" + levels);
-			if (levels == 5) {
+			
+			if (sb5.matches((Beacon) block.getState())== true) {
 				tier = 5;
 				type = "speed";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levels == 4) {
+			if (sb4.matches((Beacon) block.getState())== true) {
 				tier = 4;
 				type = "speed";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levels == 3) {
+			if (sb3.matches((Beacon) block.getState())== true) {
 				tier = 3;
 				type = "speed";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levels == 2) {
+			if (sb2.matches((Beacon) block.getState())== true) {
 				tier = 2;
 				type = "speed";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levels == 1) {
+			if (sb1.matches((Beacon) block.getState())== true) {
 				tier = 1;
 				type = "speed";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levelstr == 5) {
+			if (str5.matches((Beacon) block.getState())== true) {
 				tier = 5;
 				type = "strength";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levelstr == 4) {
+			if (str4.matches((Beacon) block.getState())== true) {
 				tier = 4;
 				type = "strength";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levelstr == 3) {
+			if (str3.matches((Beacon) block.getState())== true) {
 				tier = 3;
 				type = "strength";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levelstr == 2) {
+			if (str2.matches((Beacon) block.getState())== true) {
 				tier = 2;
 				type = "strength";
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
 			}
-			if (levelstr == 1) {
+			if (str1.matches((Beacon) block.getState())== true) {
 				tier = 1;
 				type = "strength";
 				sv.setTier(loc, tier);
@@ -108,4 +124,4 @@ public class MultiBlockStructure {
 			}
 		}
 	}
-}
+
