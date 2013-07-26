@@ -4,12 +4,15 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Beacon;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.BeaconInventory;
 
 import com.untamedears.citadel.Citadel;
@@ -27,7 +30,7 @@ public class BeaconListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockPlace(BlockPlaceEvent event) {
-		Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+		Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 		logger.info("Listener is enabled.");
 		if (event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc = event.getBlock().getLocation();
@@ -58,7 +61,7 @@ public class BeaconListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerInteract(InventoryOpenEvent event) {
+	public void onPlayerOpenInventory(InventoryOpenEvent event) {
 		if (event.getInventory() instanceof BeaconInventory)
 			event.setCancelled(true);
 	}

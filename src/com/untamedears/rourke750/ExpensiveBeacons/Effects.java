@@ -16,7 +16,7 @@ import com.untamedears.citadel.entity.IReinforcement;
 import com.untamedears.citadel.entity.PlayerReinforcement;
 
 public class Effects {
-	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 
 	public void runEffects(Map<Location, String> type, Map<Location, Integer> tier) {
 		logger.info("Effects has run");

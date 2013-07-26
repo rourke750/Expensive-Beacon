@@ -14,7 +14,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
-public class ExpensiveBeaconsplugin extends JavaPlugin {
+public class ExpensiveBeaconsPlugin extends JavaPlugin {
+	public static ExpensiveBeaconsPlugin instance;
+	
 	private StrengthBeacon strb;
 	private BeaconListener ls;
 	private SpeedBeacon sb;
@@ -23,9 +25,19 @@ public class ExpensiveBeaconsplugin extends JavaPlugin {
 	public BufferedWriter writer;
 	private Effects ef = null;
 	private File file;
-	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+	private Logger logger;
+	
+	public static StaticBeaconStructure testStructure;
+	
+	public void onLoad() {
+		instance = this;
+		
+		logger = this.getLogger();
+	}
 
 	public void onEnable() {
+		testStructure = StaticBeaconStructure.loadFromFile(new File(this.getDataFolder(), "test_structure.txt"));
+		
 		SpeedBeacon sb = new SpeedBeacon();
 		StrengthBeacon strb = new StrengthBeacon();
 		logger.info("Plugin Enabled, Welcome to Alpha testing!");
@@ -40,7 +52,7 @@ public class ExpensiveBeaconsplugin extends JavaPlugin {
 		try {
 			File existing = new File(dir + "StoredBeacons.txt");
 			if (existing.exists()) {
-				Logger.getLogger(ExpensiveBeaconsplugin.class.getName()).log(Level.INFO, "Existing file", "");
+				Logger.getLogger(ExpensiveBeaconsPlugin.class.getName()).log(Level.INFO, "Existing file", "");
 				FileWriter fw = new FileWriter(existing.getAbsoluteFile(), true);
 				writer = new BufferedWriter(fw);
 				file = existing;
@@ -48,7 +60,7 @@ public class ExpensiveBeaconsplugin extends JavaPlugin {
 				sm.load(file);
 			}
 			else {
-				Logger.getLogger(ExpensiveBeaconsplugin.class.getName()).log(Level.INFO, "Making a new file", "");
+				Logger.getLogger(ExpensiveBeaconsPlugin.class.getName()).log(Level.INFO, "Making a new file", "");
 				PrintWriter fstream = new PrintWriter(dir + "StoredBeacons.txt");
 				writer = new BufferedWriter(fstream);
 			}
@@ -86,7 +98,6 @@ public class ExpensiveBeaconsplugin extends JavaPlugin {
 			smm.save(file);
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

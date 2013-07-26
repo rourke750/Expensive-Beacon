@@ -9,12 +9,12 @@ import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
 public class MultiBlockStructure {
 	private BeaconListener ls = null;
-	private ExpensiveBeaconsplugin pl = null;
+	private ExpensiveBeaconsPlugin pl = null;
 	private SpeedBeacon sb = null;
 	private StoredValues sv = null;
 	private StrengthBeacon strb;
 
-	public MultiBlockStructure(ExpensiveBeaconsplugin plugin, BeaconListener lis, SpeedBeacon speed, StoredValues stored, StrengthBeacon str) {
+	public MultiBlockStructure(ExpensiveBeaconsPlugin plugin, BeaconListener lis, SpeedBeacon speed, StoredValues stored, StrengthBeacon str) {
 		pl = plugin;
 		ls = lis;
 		sb = speed;
@@ -22,14 +22,14 @@ public class MultiBlockStructure {
 		strb = str;
 	}
 
-	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 
 	public void checkBuild(Location loc) {
 		int levels = sb.getLevel(loc);
 		int levelstr = strb.getLevel(loc);
 		if (sv.getType(loc) != null) {
 			if (levels != sv.getTier(loc) || levelstr != sv.getTier(loc)) {
-				logger.info("This should not of occured");
+				logger.info("This should not have occured");
 				sv.removeTier(loc);
 				sv.removeType(loc);
 			}

@@ -5,10 +5,10 @@ import java.util.logging.Logger;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-import com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsplugin;
+import com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsPlugin;
 
 public class SpeedBeacon {
-	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
+	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 	private int level = 0;
 	private int level1 = 0;
 	private int level2 = 0;

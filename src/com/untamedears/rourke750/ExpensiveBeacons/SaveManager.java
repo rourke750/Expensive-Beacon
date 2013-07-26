@@ -15,11 +15,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 
 public class SaveManager {
-	Logger logger = Logger.getLogger(ExpensiveBeaconsplugin.class.getName());
-	private ExpensiveBeaconsplugin pl = null;
+	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
+	private ExpensiveBeaconsPlugin pl = null;
 	private StoredValues sv = null;
 
-	public SaveManager(ExpensiveBeaconsplugin plugin, StoredValues stored) {
+	public SaveManager(ExpensiveBeaconsPlugin plugin, StoredValues stored) {
 		pl = plugin;
 		sv = stored;
 	}
