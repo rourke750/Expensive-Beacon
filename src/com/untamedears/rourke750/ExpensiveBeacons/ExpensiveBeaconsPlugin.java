@@ -45,11 +45,13 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	}
 
 	public void onEnable() {
+		StrengthBeacon strb = new StrengthBeacon();
+		SpeedBeacon sb = new SpeedBeacon();
 		BeaconManager bm = new BeaconManager(sb, strb);
 		String dir = this.getDataFolder() + File.separator + "Expensive Beacon Types" + File.separator;
 		new File(dir).mkdirs();
 		String type=null;
-		for (int i=0; i<1; i++){
+		for (int i=0; i<10; i++){
 			if (i==0){
 				type="speed_structure1.txt";
 			}

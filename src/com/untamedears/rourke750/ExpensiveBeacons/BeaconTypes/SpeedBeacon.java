@@ -11,7 +11,12 @@ public class SpeedBeacon {
 	public void Beacons1(File file) throws IOException{
 		FileOutputStream fos = new FileOutputStream(file);
 		BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fos));
-		br.append("(1,0,0)[57:0];(-1,0,0)[57:0];");
+		br.append("(0,-1,0)[57:0];(-1,-1,0)[57:0];(-2,-1,0)[57:0];(-2,-1,-1)[57:0];"+
+		"(-2,-1,1)[57:0];(-3,-1,0)[57:0];(1,-1,0)[57:0];(2,-1,0)[57:0];"+
+		"(-2,-1,1)[57:0];(-2,-1,-1)[57:0];(-3,-1,0)[57:0];(0,-1,1)[57:0];"+
+		"(0,-1,2)[57:0];(1,-1,2)[57:0];(-1,-1,2)[57:0];(0,-1,3)[57:0];"+
+		"(0,-1,-1)[57:0];(0,-1,-2)[57:0];(1,-1,-2)[57:0];(-1,-1,-2)[57:0];"+
+		"(0,-1,-3)[57:0];");
 		
 		br.flush();
 		fos.close();
