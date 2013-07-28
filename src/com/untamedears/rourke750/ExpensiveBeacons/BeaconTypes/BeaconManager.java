@@ -11,19 +11,19 @@ public class BeaconManager {
 	 strb=strength;
  }
  	public void CreateBeaconFiles(File file, String type) throws IOException{
- 		if (type=="speed_structure1.txt"){
+ 		if (type.equals("speed_structure1.txt")){
  			sb.Beacons1(file);
  		}
- 		if (type=="speed_structure2.txt"){
+ 		if (type.equals("speed_structure2.txt")){
  			sb.Beacons2(file);
  		}
- 		if (type=="speed_structure3.txt"){
+ 		if (type.equals("speed_structure3.txt")){
  			sb.Beacons3(file);
  		}
- 		if (type=="speed_structure4.txt"){
+ 		if (type.equals("speed_structure4.txt")){
  			sb.Beacons4(file);
  		}
- 		if (type=="speed_structure5.txt"){
+ 		if (type.equals("speed_structure5.txt")){
  			sb.Beacons5(file);
  		}
  	}
