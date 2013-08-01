@@ -13,7 +13,7 @@ import org.bukkit.block.Block;
 import org.bukkit.material.MaterialData;
 
 public class StaticBeaconStructure implements BeaconStructure {
-	private static Pattern locationPattern = Pattern.compile("^\\(([0-9\\-]+),([0-9\\-]+),([0-9\\-]+)\\)\\[([0-9]+):([0-9]+)\\]$");
+	private static Pattern locationPattern = Pattern.compile("^\\(([\\-]?[0-9]+),([\\-]?[0-9]+),([\\-]?[0-9]+)\\)\\[([0-9]+):([0-9]+)\\]$");
 	
 	private HashMap<RelativeBlock, MaterialData> blocks = new HashMap<RelativeBlock, MaterialData>();
 	
