@@ -28,16 +28,8 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	private File file;
 	private Logger logger;
 	
-	public static StaticBeaconStructure speedstucture1;
-	public static StaticBeaconStructure speedstucture2;
-	public static StaticBeaconStructure speedstucture3;
-	public static StaticBeaconStructure speedstucture4;
-	public static StaticBeaconStructure speedstucture5;
-	public static StaticBeaconStructure strengthstucture1;
-	public static StaticBeaconStructure strengthstucture2;
-	public static StaticBeaconStructure strengthstucture3;
-	public static StaticBeaconStructure strengthstucture4;
-	public static StaticBeaconStructure strengthstucture5;
+	public StaticBeaconMeta meta;
+	
 	public void onLoad() {
 		instance = this;
 		
@@ -51,37 +43,19 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		String dir = this.getDataFolder() + File.separator + "Expensive Beacon Types" + File.separator;
 		new File(dir).mkdirs();
 		String type=null;
-		for (int i=0; i<10; i++){
-			if (i==0){
-				type="speed_structure1.txt";
-			}
-			if (i==1){
-				type="speed_structure2.txt";
-			}
-			if (i==2){
-				type="speed_structure3.txt";
-			}
-			if (i==3){
-				type="speed_structure4.txt";
-			}
-			if (i==4){
-				type="speed_structure5.txt";
-			}
-			if (i==5){
-				type="strength_structure1.txt";
-			}
-			if (i==6){
-				type="strength_structure2.txt";
-			}
-			if (i==7){
-				type="strength_structure3.txt";
-			}
-			if (i==8){
-				type="strength_structure4.txt";
-			}
-			if (i==9){
-				type="strength_structure5.txt";
-			}
+		meta= new StaticBeaconMeta();
+		String name[] = {												// Keeps file names within an array to remove ~10 if statemenets ~iebagi
+							"speed_structure1.txt", "speed_structure2.txt",
+							"speed_structure3.txt", "speed_structure4.txt",
+							"speed_structure5.txt", "strength_structure1.txt",
+							"strength_structure2.txt", "strength_structure3.txt",
+							"strength_structure4.txt", "strength_structure5.txt"
+		};
+		
+		for (int i=0; i<meta.getMaxSize(); i++){
+			
+			type = name[i];
+			
 			try {
 				File beacon = new File(dir + type);
 				if (beacon.exists()) {
@@ -101,23 +75,16 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 			
 		}
 		
-		speedstucture1 = StaticBeaconStructure.loadFromFile(new File(dir, "speed_structure1.txt"));
-		speedstucture2 = StaticBeaconStructure.loadFromFile(new File(dir, "speed_structure2.txt"));
-		speedstucture3 = StaticBeaconStructure.loadFromFile(new File(dir, "speed_structure3.txt"));
-		speedstucture4 = StaticBeaconStructure.loadFromFile(new File(dir, "speed_structure4.txt"));
-		speedstucture5 = StaticBeaconStructure.loadFromFile(new File(dir, "speed_structure5.txt"));
-		strengthstucture1 = StaticBeaconStructure.loadFromFile(new File(dir, "strength_structure1.txt"));
-		strengthstucture2 = StaticBeaconStructure.loadFromFile(new File(dir, "strength_structure2.txt"));
-		strengthstucture3 = StaticBeaconStructure.loadFromFile(new File(dir, "strength_structure3.txt"));
-		strengthstucture4 = StaticBeaconStructure.loadFromFile(new File(dir, "strength_structure4.txt"));
-		strengthstucture5 = StaticBeaconStructure.loadFromFile(new File(dir, "strength_structure5.txt"));
+		for(int i=0; i<meta.getMaxSize(); i++){						// Sends loadFromFile to StaticBeaconMeta class. ~iebagi
+			meta.overStruct(i, StaticBeaconStructure.loadFromFile(new File(dir, name[i])));	
+		}
+	
+		
 		logger.info("Plugin Enabled, Welcome to Alpha testing!");
 		sv = new StoredValues();
 		dir = this.getDataFolder() + File.separator + "Player Beacon Saves" + File.separator;
 		new File(dir).mkdirs();
-		MultiBlockStructure ms = new MultiBlockStructure(this, ls, sv, speedstucture1, speedstucture2, speedstucture3,
-				speedstucture4, speedstucture5, strengthstucture1, strengthstucture2, strengthstucture3, 
-				strengthstucture4, strengthstucture5);
+		MultiBlockStructure ms = new MultiBlockStructure(this, ls, sv, meta);
 		ls = new BeaconListener(ms, sv);
 		SaveManager sm = new SaveManager(this, sv);
 		Effects ef = new Effects();

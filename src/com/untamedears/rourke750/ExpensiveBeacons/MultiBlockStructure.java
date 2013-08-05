@@ -15,107 +15,33 @@ public class MultiBlockStructure {
 	private StoredValues sv = null;
 	private StrengthBeacon strb;
 	
-
-	private StaticBeaconStructure sb1 = null;
-	private StaticBeaconStructure sb2 = null;
-	private StaticBeaconStructure sb3 = null;
-	private StaticBeaconStructure sb4 = null;
-	private StaticBeaconStructure sb5 = null;
-	private StaticBeaconStructure str1=null;
-	private StaticBeaconStructure str2=null;
-	private StaticBeaconStructure str3=null;
-	private StaticBeaconStructure str4=null;
-	private StaticBeaconStructure str5=null;
+	private StaticBeaconMeta meta = null;
 	
 	public MultiBlockStructure(ExpensiveBeaconsPlugin plugin, BeaconListener lis, StoredValues stored,
-			StaticBeaconStructure speed1, StaticBeaconStructure speed2, StaticBeaconStructure speed3,
-			StaticBeaconStructure speed4, StaticBeaconStructure speed5, StaticBeaconStructure strength1,
-			StaticBeaconStructure strength2, StaticBeaconStructure strength3, StaticBeaconStructure strength4,
-			StaticBeaconStructure strength5) {
+			StaticBeaconMeta m) {
 		pl = plugin;
 		ls = lis;
-		sb1 = speed1;
-		sb2 = speed2;
-		sb3 = speed3;
-		sb4 = speed4;
-		sb5 = speed5;
-		str1 =strength1;
-		str2 =strength2;
-		str3 =strength3;
-		str4 =strength4;
-		str5 =strength5;
-		sv = stored;
+		meta = m;
 	}
 
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 
 	public void checkBuild(Location loc) {
 		int tier = 0;
-		String type;
+		String type=null;
+		String typeName[] = {"speed", "strength"};
 		Block block=loc.getBlock();
 		
-
+			for(int i=1; i<=meta.getMaxSize();i++){			//Remove if statements for loop statement.	~iebagi
+				if(meta.getStruct(i).matches((Beacon) block.getState())==true){
+					tier = i%5;
+					type = typeName[(i/5)%4];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
+				} 
+			}
 			
-			if (sb5.matches((Beacon) block.getState())== true) {
-				tier = 5;
-				type = "speed";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (sb4.matches((Beacon) block.getState())== true) {
-				tier = 4;
-				type = "speed";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (sb3.matches((Beacon) block.getState())== true) {
-				tier = 3;
-				type = "speed";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (sb2.matches((Beacon) block.getState())== true) {
-				tier = 2;
-				type = "speed";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (sb1.matches((Beacon) block.getState())== true) {
-				tier = 1;
-				type = "speed";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (str5.matches((Beacon) block.getState())== true) {
-				tier = 5;
-				type = "strength";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (str4.matches((Beacon) block.getState())== true) {
-				tier = 4;
-				type = "strength";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (str3.matches((Beacon) block.getState())== true) {
-				tier = 3;
-				type = "strength";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (str2.matches((Beacon) block.getState())== true) {
-				tier = 2;
-				type = "strength";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
-			if (str1.matches((Beacon) block.getState())== true) {
-				tier = 1;
-				type = "strength";
-				sv.setTier(loc, tier);
-				sv.setType(loc, type);
-			}
+			sv.setTier(loc, tier);
+			sv.setType(loc, type);
+				
 			if (tier==0){
 			if (sv.getType(loc)!=null){
 				sv.removeTier(loc);
