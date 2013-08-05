@@ -26,12 +26,14 @@ public class Effects {
          for (String run : ty) {
                  logger.info(run);
                  for (Location run2 : tier.keySet()) {
+                	 logger.info("LOCATION "+run2);
                          run3 = tier.get(run2);
                          if(type.get(run2).equals(run)){  // Tried making the if statements more efficent. ~iebagi
+                        	 logger.info(run2 + "        " + run + "          " + run3);
                                  if(run=="speed"){
                                          setSpeedEffects(run2, run3);
                                  }
-                                 else if(run=="strength"){
+                                 if(run=="strength"){
                                          setStrengthEffects(run2, run3);
                                  }
                          }

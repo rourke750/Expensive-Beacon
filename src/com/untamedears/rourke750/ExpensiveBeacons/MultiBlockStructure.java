@@ -22,6 +22,7 @@ public class MultiBlockStructure {
 		pl = plugin;
 		ls = lis;
 		meta = m;
+		sv= stored;
 	}
 
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
@@ -31,22 +32,21 @@ public class MultiBlockStructure {
 		String type=null;
 		String typeName[] = {"speed", "strength"};
 		Block block=loc.getBlock();
-		
-			for(int i=0; i<=meta.getMaxSize();i++){			//Remove if statements for loop statement.	~iebagi
+			for(int i=0; i<meta.getMaxSize();i++){			//Remove if statements for loop statement.	~iebagi
 				if(meta.getStruct(i).matches((Beacon) block.getState())==true){
-					tier = i%4+1;
+					tier = i%4;
 					type = typeName[(i/5)%1];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
 				} 
 			}
-			
-			sv.setTier(loc, tier);
-			sv.setType(loc, type);
-				
 			if (tier==0){
 			if (sv.getType(loc)!=null){
 				sv.removeTier(loc);
 				sv.removeType(loc);
 				}
+			}
+			else{ 
+				sv.setTier(loc, tier);
+				sv.setType(loc, type);	
 			}
 		}
 	}
