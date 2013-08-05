@@ -32,10 +32,10 @@ public class MultiBlockStructure {
 		String typeName[] = {"speed", "strength"};
 		Block block=loc.getBlock();
 		
-			for(int i=1; i<=meta.getMaxSize();i++){			//Remove if statements for loop statement.	~iebagi
+			for(int i=0; i<=meta.getMaxSize();i++){			//Remove if statements for loop statement.	~iebagi
 				if(meta.getStruct(i).matches((Beacon) block.getState())==true){
-					tier = i%5;
-					type = typeName[(i/5)%4];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
+					tier = i%4+1;
+					type = typeName[(i/5)%1];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
 				} 
 			}
 			

@@ -20,8 +20,8 @@ public class StaticBeaconMeta{
 		return arr[i];
 	}
 	
-	public StaticBeaconStructure overStruct(int i, StaticBeaconStructure a){
-		return arr[i]=a;
+	public void overStruct(int i, StaticBeaconStructure a){
+		arr[i]=a;
 	}
 	
 	public int getMaxSize(){

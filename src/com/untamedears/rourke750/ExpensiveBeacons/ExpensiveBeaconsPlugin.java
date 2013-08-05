@@ -27,6 +27,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	private Effects ef = null;
 	private File file;
 	private Logger logger;
+	private StaticBeaconStructure sbs;
 	
 	public StaticBeaconMeta meta;
 	
@@ -43,6 +44,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		String dir = this.getDataFolder() + File.separator + "Expensive Beacon Types" + File.separator;
 		new File(dir).mkdirs();
 		String type=null;
+		sbs= new StaticBeaconStructure();
 		meta= new StaticBeaconMeta();
 		String name[] = {												// Keeps file names within an array to remove ~10 if statemenets ~iebagi
 							"speed_structure1.txt", "speed_structure2.txt",
