@@ -60,7 +60,7 @@ public class BeaconListener implements Listener {
 		}
 		if (event.getBlock().getType()==Material.DIAMOND_BLOCK){
 			for (Location loc: sv.getTypeMap().keySet()){
-		if (event.getBlock().getLocation().distance(loc)<=50){
+		if (event.getBlock().getLocation().distance(loc)<=30){
 			multi.checkBuild(loc);
 				}
 			}
