@@ -33,7 +33,6 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	
 	public void onLoad() {
 		instance = this;
-		
 		logger = this.getLogger();
 	}
 
@@ -88,7 +87,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		new File(dir).mkdirs();
 		MultiBlockStructure ms = new MultiBlockStructure(this, ls, sv, meta);
 		ls = new BeaconListener(ms, sv);
-		SaveManager sm = new SaveManager(this, sv);
+		sm = new SaveManager(this, sv);
 		Effects ef = new Effects();
 		enableListener();
 		try {

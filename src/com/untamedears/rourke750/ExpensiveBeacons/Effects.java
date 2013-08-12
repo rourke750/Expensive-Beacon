@@ -56,8 +56,8 @@ public class Effects {
                  if (group == null) {
                          continue;
                  }
-                 if (!group.isMember(name.toString()) && !group.isModerator(name.toString())
-                		 && !group.isFounder(name.toString()) && !group.isPersonalGroup()) {
+                 if (!group.isMember(name.getName()) && !group.isModerator(name.getName())
+                		 && !group.isFounder(name.getName())) {
                          continue;
                  }
                  else {
@@ -86,9 +86,8 @@ public class Effects {
                  if (group == null) {
                          continue;
                  }
-                 if (!group.isMember(name.toString()) && !group.isModerator(name.toString())
-                		 && !group.isFounder(name.toString()) && !group.isPersonalGroup()) {
-                      
+                 if (!group.isMember(name.getName()) && !group.isModerator(name.getName())
+                		 && !group.isFounder(name.getName())) {
                          continue;
                  }
                  else {
@@ -103,6 +102,7 @@ public class Effects {
          logger.info("public void faction cords" + loc);
          IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(loc);
          if (rein != null && rein instanceof PlayerReinforcement) {
+        	 logger.info("returned with the group thankfully");
                  return ((PlayerReinforcement) rein).getOwner();
          }
          return null;
