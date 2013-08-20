@@ -10,17 +10,11 @@ import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
 
 public class MultiBlockStructure {
-	private BeaconListener ls = null;
-	private ExpensiveBeaconsPlugin pl = null;
 	private StoredValues sv = null;
-	private StrengthBeacon strb;
-	
 	private StaticBeaconMeta meta = null;
 	
 	public MultiBlockStructure(ExpensiveBeaconsPlugin plugin, BeaconListener lis, StoredValues stored,
 			StaticBeaconMeta m) {
-		pl = plugin;
-		ls = lis;
 		meta = m;
 		sv= stored;
 	}
@@ -30,14 +24,19 @@ public class MultiBlockStructure {
 	public void checkBuild(Location loc) {
 		int tier = 0;
 		String type=null;
-		String typeName[] = {"speed", "strength"};
+		String typeName[] = {"speed","strength", "regen", "haste", "super"};
 		Block block=loc.getBlock();
 			for(int i=meta.getMaxSize()-1; i>=0;i--){			//Remove if statements for loop statement.	~iebagi
 				if(meta.getStruct(i).matches((Beacon) block.getState())==true){
+					if (type !=null){
+						logger.info("Exlcuded not null: "+type.toString());
+						continue;
+					}
 					tier = i%5+1;
-					type = typeName[(i/5)%2];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
+					type = typeName[(i/5)%5];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
 				} 
 			}
+			logger.info(type+" and tier"+tier);
 			if (tier==0){
 			if (sv.getType(loc)!=null){
 				sv.removeTier(loc);

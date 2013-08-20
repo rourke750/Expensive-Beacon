@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class StaticBeaconMeta{
-	private static int maxSize = 10;
+	private static int maxSize = 21;
 	private static StaticBeaconStructure arr[] = new StaticBeaconStructure[maxSize];
 
 	
