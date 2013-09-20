@@ -27,26 +27,28 @@ public class MultiBlockStructure {
 		String typeName[] = {"speed","strength", "regen", "haste", "super"};
 		Block block=loc.getBlock();
 			for(int i=meta.getMaxSize()-1; i>=0;i--){			//Remove if statements for loop statement.	~iebagi
-				if(meta.getStruct(i).matches((Beacon) block.getState())==true){
+				if(meta.getStruct(i).matches((Beacon) block.getState())==true){	
+					
+					if (type !=null && type == "haste"){
+						type=null;
+						tier=0;
+					}
 					if (type !=null){
-						logger.info("Exlcuded not null: "+type.toString());
 						continue;
 					}
+					else{
 					tier = i%5+1;
 					type = typeName[(i/5)%5];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
+					if ((sv.getType(loc) != type || sv.getTier(loc) != tier) && sv.getType(loc) != null){
+						sv.removeTier(loc);
+						sv.removeType(loc);
+						return;
+					}
+					}
 				} 
 			}
-			logger.info(type+" and tier"+tier);
-			if (tier==0){
-			if (sv.getType(loc)!=null){
-				sv.removeTier(loc);
-				sv.removeType(loc);
-				}
-			}
-			else{ 
 				sv.setTier(loc, tier);
-				sv.setType(loc, type);	
-			}
+				sv.setType(loc, type);
 		}
 	}
 

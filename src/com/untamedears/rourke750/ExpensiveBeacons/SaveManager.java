@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +25,6 @@ public class SaveManager {
 	}
 
 	public void load(File file) throws IOException {
-		logger.info("load occured");
 		FileInputStream fis = new FileInputStream(file);
 		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 		String line;
@@ -37,7 +35,6 @@ public class SaveManager {
 			Location loc = new Location(Bukkit.getWorld(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
 			sv.setTier(loc, Integer.parseInt(tier));
 			sv.setType(loc, type);
-			logger.info("Load finished");
 		}
 		fis.close();
 	}

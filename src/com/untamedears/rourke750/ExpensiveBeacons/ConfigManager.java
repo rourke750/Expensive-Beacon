@@ -9,23 +9,24 @@ public class ConfigManager {
 	}
 	public void initconfig(FileConfiguration config){
 		config.options().header("Author: Rourke750\n"
-		+ "Bukkit Page located here: http://dev.bukkit.org/bukkit-plugins/expensive-beacons/\n"
-		+ "Github located here: https://github.com/rourke750/Expensive-Beacon\n"
-		+ "\n"
-		+ "apply_effects: This says how long effects will last on a player. (ticks)\n"
+		+ "Bukkit Page located here: http://dev.bukkit.org/bukkit-plugins/expensive-beacons/\r\n"
+		+ "Github located here: https://github.com/rourke750/Expensive-Beacon\r\n"
+		+ "\r\n"
+		+ "apply_effects: This says how long effects will last on a player. (ticks)\r\n"
 		+ "effects_applied: This determines how long the plugin waits to check if a player is within range to give them an effect. (ticks)\n"
-		+ "save: How long before each save. (ticks)\n"
-		+ "beacon_speed: Parent for defining speed beacon tiers.\n"
-		+ "		tier_1: Tier 1 of the Speed Beacon.\n"
-		+ "			range: The range that the tier 1 speed beacon checks.\n"
-		+ "		tier_2: Tier 2 of the Speed Beacon.\n"
-		+ "			range: The range that the tier 1 speed beacon checks.\n"
-		+ "		tier_3: Tier 3 of the Speed Beacon.\n"
-		+ "			range: The range that the tier 1 speed beacon checks.\n"
-		+ "		tier_4: Tier 4 of the Speed Beacon.\n"
-		+ "			range: The range that the tier 1 speed beacon checks.\n"
-		+ " 	tier_5: Tier 5 of the Speed Beacon.\n"
-		+ "			range: The range that the tier 1 speed beacon checks.\n");
+		+ "save: How long before each save. (ticks)\r\n"
+		+ "beacon_speed: Parent for defining speed beacon tiers.\r\n"
+		+ "		tier_1: Tier 1 of the Speed Beacon.\r\n"
+		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
+		+ "		tier_2: Tier 2 of the Speed Beacon.\r\n"
+		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
+		+ "		tier_3: Tier 3 of the Speed Beacon.\r\n"
+		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
+		+ "		tier_4: Tier 4 of the Speed Beacon.\r\n"
+		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
+		+ " 	tier_5: Tier 5 of the Speed Beacon.\r\n"
+		+ "			range: The range that the tier 1 speed beacon checks." +
+		"\r\n");
 		
 		if (!config.contains("apply_effects")){
 			config.set("apply_effects", 1200);

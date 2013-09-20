@@ -101,7 +101,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		dir = this.getDataFolder() + File.separator + "Player Beacon Saves" + File.separator;
 		new File(dir).mkdirs();
 		MultiBlockStructure ms = new MultiBlockStructure(this, ls, sv, meta);
-		ls = new BeaconListener(ms, sv);
+		ls = new BeaconListener(ms, sv, this);
 		sm = new SaveManager(this, sv);
 		Effects ef = new Effects(config_);
 		enableListener();

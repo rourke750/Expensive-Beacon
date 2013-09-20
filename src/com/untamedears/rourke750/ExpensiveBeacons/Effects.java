@@ -30,6 +30,7 @@ public class Effects {
          for (String run : ty) {
                  for (Location run2 : tier.keySet()) {
                          run3 = tier.get(run2);
+                         if (type.get(run2) == null) continue;
                          if(type.get(run2).equals(run)){  // Tried making the if statements more efficent. ~iebagi
                                  if(run.equals("speed")){
                                          setSpeedEffects(run2, run3);
