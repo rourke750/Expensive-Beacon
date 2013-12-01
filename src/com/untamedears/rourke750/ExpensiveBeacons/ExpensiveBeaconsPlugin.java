@@ -54,7 +54,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		String dir = this.getDataFolder() + File.separator + "Expensive Beacon Types" + File.separator;
 		new File(dir).mkdirs();
 		String type=null;
-		sbs= new StaticBeaconStructure();
+		sbs= new StaticBeaconStructure(this);
 		meta= new StaticBeaconMeta();
 		String name[] = {												// Keeps file names within an array to remove ~21 if statemenets ~iebagi
 							"speed_structure1.txt", "speed_structure2.txt",
@@ -130,7 +130,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
-				eff.runEffects(sv.getTypeMap(), sv.getTierMap());
+				eff.runEffects(sv.getTypeMap(), sv.getTierMap(), sv.getTimeMap());
 			}
 		}, 0, config_.getInt("effects_applied"));
 		final SaveManager smm = sm;
@@ -145,6 +145,11 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 				}
 			}
 		}, 0, config_.getInt("save"));
+		PlayerHelper ph = new PlayerHelper(meta);
+		CommandManager com = new CommandManager(ph);
+		for (String command : getDescription().getCommands().keySet()) {
+            getCommand(command).setExecutor(com);
+        }
 	}
 
 	public void onDisable() {

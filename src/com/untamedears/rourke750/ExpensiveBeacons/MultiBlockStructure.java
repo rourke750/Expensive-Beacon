@@ -39,16 +39,19 @@ public class MultiBlockStructure {
 					else{
 					tier = i%5+1;
 					type = typeName[(i/5)%5];			//Every 4 loops, typeName[n] turns into typeName[1] ~iebagi
-					if ((sv.getType(loc) != type || sv.getTier(loc) != tier) && sv.getType(loc) != null){
+					if (sv.getType(loc)!=null && (!sv.getType(loc).equals(type) || sv.getTier(loc) != tier) && sv.getType(loc) != null){
 						sv.removeTier(loc);
 						sv.removeType(loc);
-						return;
+						sv.removeDate(loc)
+;						return;
 					}
 					}
 				} 
 			}
+				if (type == null) return;
 				sv.setTier(loc, tier);
 				sv.setType(loc, type);
+				sv.setDate(loc, System.currentTimeMillis());
 		}
 	}
 

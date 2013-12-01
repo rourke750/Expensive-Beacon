@@ -50,7 +50,7 @@ public class BeaconListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-		public void onBlockBreak(BlockBreakEvent event){
+		public void onBlockBreak(final BlockBreakEvent event){
 		if(event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc= event.getBlock().getLocation();
 			if(sv.getType(loc)!=null){
@@ -60,13 +60,15 @@ public class BeaconListener implements Listener {
 		}
 		if (event.getBlock().getType()==Material.DIAMOND_BLOCK){
 			for (final Location loc: sv.getTypeMap().keySet()){
-				if (event.getBlock().getLocation().distance(loc)<=30){
-					Bukkit.getScheduler().runTask(plugin, new Runnable() {
-						public void run() {
+				Bukkit.getScheduler().runTask(plugin, new Runnable(){
+					@Override
+					public void run(){
+				if (event.getBlock().getLocation().distance(loc)<=15){
+					
 							multi.checkBuild(loc);
-						}
-					});
 				}
+				}
+				});
 			}
 		}
 	}
@@ -76,4 +78,5 @@ public class BeaconListener implements Listener {
 		if (event.getInventory() instanceof BeaconInventory)
 			event.setCancelled(true);
 	}
+	
 }

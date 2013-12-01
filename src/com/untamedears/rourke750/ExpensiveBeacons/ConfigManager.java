@@ -25,8 +25,8 @@ public class ConfigManager {
 		+ "		tier_4: Tier 4 of the Speed Beacon.\r\n"
 		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
 		+ " 	tier_5: Tier 5 of the Speed Beacon.\r\n"
-		+ "			range: The range that the tier 1 speed beacon checks." +
-		"\r\n");
+		+ "			range: The range that the tier 1 speed beacon checks.\r\n" 
+		+ "maturation_time: The amount of time for a beacon to become active, in minutes.\r\n");
 		
 		if (!config.contains("apply_effects")){
 			config.set("apply_effects", 1200);
@@ -99,6 +99,9 @@ public class ConfigManager {
 		}
 		if (!config.contains("beacon_super.range")){
 			config.set("beacon_super.range", 300);
+		}
+		if (!config.contains("maturation_time")){
+			config.set("maturation_time", 1440);
 		}
 		plugin.saveConfig();
 	}

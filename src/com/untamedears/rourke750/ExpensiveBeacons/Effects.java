@@ -24,7 +24,7 @@ public class Effects {
 	
 	// Thank you Iebagi for making this code more efficient.
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
-	 public void runEffects(Map<Location, String> type, Map<Location, Integer> tier) {
+	 public void runEffects(Map<Location, String> type, Map<Location, Integer> tier, Map<Location, Long> date) {
          int run3;
          Collection<String> ty = type.values();
          for (String run : ty) {
@@ -32,6 +32,8 @@ public class Effects {
                          run3 = tier.get(run2);
                          if (type.get(run2) == null) continue;
                          if(type.get(run2).equals(run)){  // Tried making the if statements more efficent. ~iebagi
+                        	 long time = date.get(run2) + 60000 * config_.getLong("maturation_time");
+                        	 if (System.currentTimeMillis() <= time) continue;
                                  if(run.equals("speed")){
                                          setSpeedEffects(run2, run3);
                                  }
@@ -237,6 +239,7 @@ public class Effects {
  
  public void effecttype(Player name, Location loc, int[] dist, int tier, int level, PotionEffectType type){
 	 if (loc.distance(name.getLocation()) <= dist[tier]) {
+		 name.removePotionEffect(type);
          name.addPotionEffect(new PotionEffect(type, config_.getInt("apply_effects"), level));
  }
  }

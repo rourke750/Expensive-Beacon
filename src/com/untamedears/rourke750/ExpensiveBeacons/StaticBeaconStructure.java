@@ -8,15 +8,23 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class StaticBeaconStructure implements BeaconStructure {
 	private static Pattern locationPattern = Pattern.compile("^\\((-?[0-9]+),(-?[0-9]+),(-?[0-9]+)\\)\\[([0-9]+):([0-9]+)\\]$");
 	
 	private HashMap<RelativeBlock, MaterialData> blocks = new HashMap<RelativeBlock, MaterialData>();
-	
+	private static ExpensiveBeaconsPlugin plugin;
+	public StaticBeaconStructure(ExpensiveBeaconsPlugin plugin){
+		this.plugin = plugin;
+	}
 	@Override
 	public boolean matches(Beacon beacon) {
 		for(RelativeBlock rBlock : blocks.keySet()) {
@@ -31,8 +39,25 @@ public class StaticBeaconStructure implements BeaconStructure {
 		return true;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void buildStructure(Player player, Beacon beacon, boolean remove) {
+			if (!remove){
+				for(RelativeBlock rBlock : blocks.keySet()) {
+					Block block = rBlock.getRelativeTo(beacon.getBlock());
+					player.sendBlockChange(block.getLocation(), Material.DIAMOND_BLOCK, (byte) 0);
+				}
+				player.sendMessage(ChatColor.BLUE+"Type the command /eb_refresh type tier to remove the fake blocks.");
+			}
+			else{
+				for(RelativeBlock rBlock : blocks.keySet()) {
+					Block block = rBlock.getRelativeTo(beacon.getBlock());
+					player.sendBlockChange(block.getLocation(), block.getType(), (byte) 0);
+				}
+			}
+	}
+	
 	public static StaticBeaconStructure loadFromFile(File file) {
-		StaticBeaconStructure structure = new StaticBeaconStructure();
+		StaticBeaconStructure structure = new StaticBeaconStructure(plugin);
 		
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
