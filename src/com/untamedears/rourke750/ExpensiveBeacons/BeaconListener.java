@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.BeaconInventory;
 
 import com.untamedears.citadel.Citadel;
@@ -50,27 +51,15 @@ public class BeaconListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-		public void onBlockBreak(final BlockBreakEvent event){
+		public void onBlockBreak(BlockBreakEvent event){
 		if(event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc= event.getBlock().getLocation();
-			if(sv.getType(loc)!=null){
-				sv.removeTier(loc);
-				sv.removeType(loc);
 			}
 		}
-		if (event.getBlock().getType()==Material.DIAMOND_BLOCK){
-			for (final Location loc: sv.getTypeMap().keySet()){
-				Bukkit.getScheduler().runTask(plugin, new Runnable(){
-					@Override
-					public void run(){
-				if (event.getBlock().getLocation().distance(loc)<=15){
-					
-							multi.checkBuild(loc);
-				}
-				}
-				});
-			}
-		}
+	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onChunkLoadEvent(ChunkLoadEvent event){
+		//event.getChunk().get
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)

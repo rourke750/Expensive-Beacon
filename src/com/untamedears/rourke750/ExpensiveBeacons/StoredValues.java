@@ -1,65 +1,67 @@
 package com.untamedears.rourke750.ExpensiveBeacons;
 
-import java.util.Date;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.block.Beacon;
+import org.bukkit.block.Block;
+
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.BeaconStorage;
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
 
 public class StoredValues {
-	private Map<Location, String> type = new HashMap<Location, String>();
-	private Map<Location, Integer> tier = new HashMap<Location, Integer>();
-	private Map<Location, Long> date = new HashMap<Location, Long>();
-
-	public StoredValues() {
-		
+	public StoredValues(BeaconStorage beaconstorage, ExpensiveBeaconsPlugin plugin, final Effects ef){
+		bs = beaconstorage;
+		this.plugin = plugin;
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			public void run() {
+				ef.runEffects(info);
+			}
+		}, 0, plugin.getConfig().getInt("effects_applied"));
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			public void run() {
+					saveMethod();
+			}
+		}, 0, plugin.getConfig().getInt("save"));
 	}
-
-	public Map<Location, String> getTypeMap() {
-		return type;
-	}
-
-	public Map<Location, Integer> getTierMap() {
-		return tier;
-	}
+	private ExpensiveBeaconsPlugin plugin;
+	private Map<Location, Info> info = new HashMap<Location, Info>();
+	private BeaconStorage bs;
+	private Map<Chunk, List<Location>> chunk = new HashMap<Chunk, List<Location>>();
 	
-	public Map<Location, Long> getTimeMap(){
-		return date;
+	public void addStoredInfo(){
+		Info in;
+		List<Integer> num = bs.getAllBeaconIds();
+		int i = 0;
+		for (int x=0; x<num.size(); x++){
+			int y=num.get(i);
+			in = bs.getBeaconInfo(y);
+			info.put(in.loc, in);
+			i++;
+		}
 	}
-
-	public String getType(Location loc) {
-		return type.get(loc);
+	public Info getBeaconInfo(Location loc){
+		return info.get(loc);
 	}
-
-	public int getTier(Location loc) {
-		return tier.get(loc);
+	public void removeBeaconInfo(Location loc, int id){
+		info.remove(loc);
+		bs.deleteBeacon(id);
 	}
-
-	public long getDate(Location loc) {
-		return date.get(loc);
+	public void addInfo(Location loc, Info info){
+		this.info.put(loc, info);
 	}
-	
-	public void setType(Location loc, String name) {
-		type.put(loc, name);
+	public int getlastId(){
+		return bs.getLastId();
+	} 
+	public void createBeacon(List<Location> locations, Info info){
+		bs.createBeacon(locations, info);
 	}
-
-	public void setTier(Location loc, int num) {
-		tier.put(loc, num);
-	}
-	
-	public void setDate(Location loc, long lon){
-		date.put(loc, lon);
-	}
-
-	public void removeType(Location loc) {
-		type.remove(loc);
-	}
-
-	public void removeTier(Location loc) {
-		tier.remove(loc);
-	}
-	
-	public void removeDate(Location loc) {
-		date.remove(loc);
+	public void saveMethod(){
+		bs.saveAllBeacons(info.values());
 	}
 }

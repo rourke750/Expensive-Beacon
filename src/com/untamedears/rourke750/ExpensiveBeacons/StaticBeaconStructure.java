@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,8 +45,9 @@ public class StaticBeaconStructure implements BeaconStructure {
 	public void buildStructure(Player player, Beacon beacon, boolean remove) {
 			if (!remove){
 				for(RelativeBlock rBlock : blocks.keySet()) {
+					MaterialData data = blocks.get(rBlock);
 					Block block = rBlock.getRelativeTo(beacon.getBlock());
-					player.sendBlockChange(block.getLocation(), Material.DIAMOND_BLOCK, (byte) 0);
+					player.sendBlockChange(block.getLocation(), data.getItemType(), (byte) 0);
 				}
 				player.sendMessage(ChatColor.BLUE+"Type the command /eb_refresh type tier to remove the fake blocks.");
 			}
@@ -54,6 +57,25 @@ public class StaticBeaconStructure implements BeaconStructure {
 					player.sendBlockChange(block.getLocation(), block.getType(), (byte) 0);
 				}
 			}
+	}
+	
+	public List<Location> getStructureLocations(Block beacon){
+		List<Location> poopyfacetomatonose = new ArrayList<Location>(); // lol bored
+		for(RelativeBlock rBlock : blocks.keySet()) {
+			MaterialData data = blocks.get(rBlock);
+			Block block = rBlock.getRelativeTo(beacon);
+			poopyfacetomatonose.add(block.getLocation());
+		}
+		return poopyfacetomatonose;
+	}
+	
+	public List<Block> getStructure(Beacon beacon){
+		List<Block> blo = new ArrayList<Block>();
+		for(RelativeBlock rBlock : blocks.keySet()) {
+			Block block = rBlock.getRelativeTo(beacon.getBlock());
+			blo.add(block);
+		}
+		return blo;
 	}
 	
 	public static StaticBeaconStructure loadFromFile(File file) {

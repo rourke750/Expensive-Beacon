@@ -15,6 +15,7 @@ import com.untamedears.citadel.Citadel;
 import com.untamedears.citadel.entity.Faction;
 import com.untamedears.citadel.entity.IReinforcement;
 import com.untamedears.citadel.entity.PlayerReinforcement;
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
 
 public class Effects {
 	private FileConfiguration config_;
@@ -24,34 +25,28 @@ public class Effects {
 	
 	// Thank you Iebagi for making this code more efficient.
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
-	 public void runEffects(Map<Location, String> type, Map<Location, Integer> tier, Map<Location, Long> date) {
-         int run3;
-         Collection<String> ty = type.values();
-         for (String run : ty) {
-                 for (Location run2 : tier.keySet()) {
-                         run3 = tier.get(run2);
-                         if (type.get(run2) == null) continue;
-                         if(type.get(run2).equals(run)){  // Tried making the if statements more efficent. ~iebagi
-                        	 long time = date.get(run2) + 60000 * config_.getLong("maturation_time");
+	 public void runEffects(Map<Location, Info> info) {
+         Collection<Info> ty = info.values();
+         for (Info run : ty) {   
+                        	 long time = run.time + 60000 * config_.getLong("maturation_time");
                         	 if (System.currentTimeMillis() <= time) continue;
                                  if(run.equals("speed")){
-                                         setSpeedEffects(run2, run3);
+                                         setSpeedEffects(run.loc, run.tier);
                                  }
                                  if(run.equals("strength")){
-                                         setStrengthEffects(run2, run3);
+                                         setStrengthEffects(run.loc, run.tier);
                                  }
                                  if(run.equals("regen")){
-                                	 setRegenEffects(run2, run3);
+                                	 setRegenEffects(run.loc, run.tier);
                                  }
                                  if(run.equals("haste")){
-                                	 setHasteEffects(run2, run3);
+                                	 setHasteEffects(run.loc, run.tier);
                                  }
                                  if(run.equals("super")){
-                                	 setSuperEffects(run2, run3);
+                                	 setSuperEffects(run.loc, run.tier);
                                  }
+                                 
                          }
-                 }
-         }
  }
 
 	 public void setSpeedEffects(Location loc, int tier) {
@@ -196,7 +191,6 @@ public class Effects {
      }
  }
  public void setSuperEffects(Location loc, int tier){
-	 int level = 1;
      int one = config_.getInt("beacon_super.range");
      int dist[] = {0,one};
 
@@ -206,8 +200,15 @@ public class Effects {
          return;
      }
      for (Player name : Bukkit.getOnlinePlayers()) {
+    	 int level = 1;
              if (!group.isMember(name.getName()) && !group.isModerator(name.getName())
             		 && !group.isFounder(name.getName())) {
+            	level = 3;
+         	 	PotionEffectType Types1[] = {PotionEffectType.SLOW_DIGGING, PotionEffectType.WEAKNESS};
+         	 	for (PotionEffectType type:Types1){
+         	 	if (type == PotionEffectType.WEAKNESS) level=1;
+         	 	negativeeffecttype(name, loc, 50, level, type);
+         	 	}
                      continue;
              }
              if (group.isPersonalGroup()){
@@ -225,6 +226,7 @@ public class Effects {
             	 	for (PotionEffectType type:Types){
             	 	effecttype(name, loc, dist, tier, level, type);
         		 }
+            	 	
              }
      }
  }
@@ -238,12 +240,20 @@ public class Effects {
  }
  
  public void effecttype(Player name, Location loc, int[] dist, int tier, int level, PotionEffectType type){
+	 if (name.getLocation().getWorld() != loc.getWorld()) return;
 	 if (loc.distance(name.getLocation()) <= dist[tier]) {
 		 name.removePotionEffect(type);
          name.addPotionEffect(new PotionEffect(type, config_.getInt("apply_effects"), level));
  }
+	 
  }
-
+ public void negativeeffecttype(Player name, Location loc, int dist, int level, PotionEffectType type){
+	 if (name.getLocation().getWorld() != loc.getWorld()) return;
+	 if (loc.distance(name.getLocation()) <= dist) {
+		 name.removePotionEffect(type);
+         name.addPotionEffect(new PotionEffect(type, config_.getInt("apply_effects"), level));
+ }
+}
 }
 
 

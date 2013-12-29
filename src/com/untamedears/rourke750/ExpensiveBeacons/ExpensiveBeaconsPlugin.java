@@ -18,6 +18,8 @@ import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.MegaBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.RegenBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.SpeedBeacon;
 import com.untamedears.rourke750.ExpensiveBeacons.BeaconTypes.StrengthBeacon;
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.BeaconStorage;
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.DataBase;
 
 public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	public static ExpensiveBeaconsPlugin instance;
@@ -26,7 +28,6 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	private SpeedBeacon sb;
 	private BeaconListener ls;
 	private StoredValues sv;
-	private SaveManager sm;
 	public BufferedWriter writer;
 	private File file;
 	private Logger logger;
@@ -94,57 +95,17 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 			
 		}
 		
-		for(int i=0; i<meta.getMaxSize(); i++){						// Sends loadFromFile to StaticBeaconMeta class. ~iebagi
+		for(int i=0; i<meta.getMaxSize(); i++){		// Sends loadFromFile to StaticBeaconMeta class. ~iebagi
 			meta.overStruct(i, StaticBeaconStructure.loadFromFile(new File(dir, name[i])));	
 		}
-		sv = new StoredValues();
-		dir = this.getDataFolder() + File.separator + "Player Beacon Saves" + File.separator;
-		new File(dir).mkdirs();
+		Effects ef = new Effects(config_);
+		BeaconStorage bc = new BeaconStorage(con, ef);
+		sv = new StoredValues(bc, this, ef);
+		sv.addStoredInfo(); // unloads all data beacon information in the database
 		MultiBlockStructure ms = new MultiBlockStructure(this, ls, sv, meta);
 		ls = new BeaconListener(ms, sv, this);
-		sm = new SaveManager(this, sv);
-		Effects ef = new Effects(config_);
 		enableListener();
-		try {
-			File existing = new File(dir + "StoredBeacons.txt");
-			if (existing.exists()) {
-				Logger.getLogger(ExpensiveBeaconsPlugin.class.getName()).log(Level.INFO, "Existing file", "");
-				FileWriter fw = new FileWriter(existing.getAbsoluteFile(), true);
-				writer = new BufferedWriter(fw);
-				file = existing;
-				logger.info("Logger pre load occured.");
-				sm.load(file);
-			}
-			else {
-				Logger.getLogger(ExpensiveBeaconsPlugin.class.getName()).log(Level.INFO, "Making a new file", "");
-				PrintWriter fstream = new PrintWriter(dir + "StoredBeacons.txt");
-				writer = new BufferedWriter(fstream);
-				file = existing;
-			}
-
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		final Effects eff = ef;
-
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			public void run() {
-				eff.runEffects(sv.getTypeMap(), sv.getTierMap(), sv.getTimeMap());
-			}
-		}, 0, config_.getInt("effects_applied"));
-		final SaveManager smm = sm;
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			public void run() {
-				try {
-					smm.save(file);
-				}
-				catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 0, config_.getInt("save"));
+				
 		PlayerHelper ph = new PlayerHelper(meta);
 		CommandManager com = new CommandManager(ph);
 		for (String command : getDescription().getCommands().keySet()) {
@@ -153,13 +114,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		final SaveManager smm = sm;
-		try {
-			smm.save(file);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		sv.saveMethod();
 	}
 
 	private void enableListener() {

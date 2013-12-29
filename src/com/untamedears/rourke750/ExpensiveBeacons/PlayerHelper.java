@@ -49,7 +49,6 @@ public class PlayerHelper {
 				return true;
 			}
 			int x = checkBeaconTier(args, tier);
-			System.out.print(x);
 			if (x == 21) return true;
 			meta.getStruct(x).buildStructure(player, (Beacon) block.getState(), state);
 			return true;

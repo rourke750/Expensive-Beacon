@@ -26,7 +26,8 @@ public class ConfigManager {
 		+ "			range: The range that the tier 1 speed beacon checks.\r\n"
 		+ " 	tier_5: Tier 5 of the Speed Beacon.\r\n"
 		+ "			range: The range that the tier 1 speed beacon checks.\r\n" 
-		+ "maturation_time: The amount of time for a beacon to become active, in minutes.\r\n");
+		+ "maturation_time: The amount of time for a beacon to become active, in minutes.\r\n"
+		+ "beacon_hitpoints: The amount of breaks it takes to destroy the entire structure. 356210 is about the time of 20 layers of dro.\r\n");
 		
 		if (!config.contains("apply_effects")){
 			config.set("apply_effects", 1200);
@@ -102,6 +103,24 @@ public class ConfigManager {
 		}
 		if (!config.contains("maturation_time")){
 			config.set("maturation_time", 1440);
+		}
+		if (!config.contains("beacon_hitpoints")){
+			config.set("beacon_hitpoints", 356210);
+		}
+		if (!config.contains("sql.hostname")){
+			config.set("sql.hostname", "localhost");
+		}
+		if (!config.contains("sql.port")){
+			config.set("sql.port", 3306);
+		}
+		if (!config.contains("sql.dbname")){
+			config.set("sql.dbname", "Expensive");
+		}
+		if (!config.contains("sql.username")){
+			config.set("sql.username", "");
+		}
+		if (!config.contains("sql.password")){
+			config.set("sql.password", "");
 		}
 		plugin.saveConfig();
 	}
