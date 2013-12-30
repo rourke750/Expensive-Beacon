@@ -27,7 +27,8 @@ public class ConfigManager {
 		+ " 	tier_5: Tier 5 of the Speed Beacon.\r\n"
 		+ "			range: The range that the tier 1 speed beacon checks.\r\n" 
 		+ "maturation_time: The amount of time for a beacon to become active, in minutes.\r\n"
-		+ "beacon_hitpoints: The amount of breaks it takes to destroy the entire structure. 356210 is about the time of 20 layers of dro.\r\n");
+		+ "beacon_hitpoints: The amount of breaks it takes to destroy the entire structure. 356210 is about the time of 20 layers of dro.\r\n"
+		+ "beacon_death_invulnerability: The amount of time the beacon stays invulnerable after it's hitpoints reach zero.\r\n");
 		
 		if (!config.contains("apply_effects")){
 			config.set("apply_effects", 1200);
@@ -106,6 +107,9 @@ public class ConfigManager {
 		}
 		if (!config.contains("beacon_hitpoints")){
 			config.set("beacon_hitpoints", 356210);
+		}
+		if (!config.contains("beacon_death_invulnerability")){
+			config.set("beacon_death_invulnerability", 1440);
 		}
 		if (!config.contains("sql.hostname")){
 			config.set("sql.hostname", "localhost");

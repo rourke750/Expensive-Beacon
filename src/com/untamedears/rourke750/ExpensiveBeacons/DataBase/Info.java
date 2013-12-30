@@ -26,4 +26,17 @@ public class Info {
 	    public Location loc;
 	    public int classnum;
 	    public Chunk chunks;
+	    
+	    public void updateCorrectID(int x){
+	    	beaconid = x;
+	    }
+	    public void updateIfBroken(boolean broken){
+	    	this.broken = broken;
+	    }
+	    public void updateBrokenTime(long brokenTime){
+	    	this.brokenTime = brokenTime;
+	    }
+	    public void updateHitPoints(int x){
+	    	hitPoints = x;
+	    }
 	  }

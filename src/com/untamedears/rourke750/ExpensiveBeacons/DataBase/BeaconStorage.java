@@ -98,7 +98,7 @@ public class BeaconStorage {
     private void initializeStatements(){
     	getBeaconFromLocation = db.prepareStatement(String.format("SELECT beacon_id, tier, type, creation, broken, class_num FROM %s "
                 + " WHERE block_x=? AND block_y=? AND block_z=? AND block_world=?", "beacons"));
-    	getBeaconStructureFromId = db.prepareStatement(String.format("SELECT block_x, block_y, block_z, block_world, class_num FROM %s "
+    	getBeaconStructureFromId = db.prepareStatement(String.format("SELECT block_x, block_y, block_z, block_world FROM %s "
     			+ " WHERE beacon_id=?", "beacon_blocks"));
     	deleteBeaconId = db.prepareStatement(String.format("DELETE FROM %s WHERE beacon_id=?", "beacons"));
     	deleteBeaconStructure = db.prepareStatement(String.format("DELETE FROM %s WHERE beacon_id=?", "beacon_blocks"));
@@ -111,10 +111,10 @@ public class BeaconStorage {
     			+ "VALUES(?, ?, ?, ?, ?)", "beacon_blocks"));
     	getBeaconIds = db.prepareStatement(String.format(
                 "SELECT beacon_id FROM %s ", "beacons"));
-    	getBeaconFromId = db.prepareStatement(String.format("SELECT tier, type, creation, broken, block_world, block_x, block_y, block_z, class_num FROM %s "
+    	getBeaconFromId = db.prepareStatement(String.format("SELECT tier, type, creation, broken, broken_time, block_world, block_x, block_y, block_z, hit_points, class_num FROM %s "
     			+ " WHERE beacon_id=?", "beacons"));
     	getLastBeaconID = db.prepareStatement(String.format(
-    			"SELECT LAST_INSERT_ID() AS id", "beacons"));
+    			"SELECT LAST_INSERT_ID() AS id ", "beacons"));
     	updateBeacon = db.prepareStatement(String.format(
     			"UPDATE %s SET broken=?, broken_time=?, hit_points=? WHERE beacon_id=?", "beacons"));
     	
@@ -172,6 +172,7 @@ public class BeaconStorage {
         	getBeaconFromLocation.setString(4, loc.getWorld().getName());
 
             ResultSet BeaconIdSet = getBeaconFromLocation.executeQuery();
+            BeaconIdSet.next();
                 interestedBeaconId = BeaconIdSet.getInt("beacon_id");
                 interestedBeaconTier = BeaconIdSet.getInt("tier");
                 interestedBeaconType = BeaconIdSet.getString("type");
@@ -206,8 +207,8 @@ public class BeaconStorage {
         int interestedBeaconClassNum = 0;
         try {
         	getBeaconFromId.setInt(1, id);
-
             ResultSet BeaconIdSet = getBeaconFromId.executeQuery();
+            BeaconIdSet.next();
                 interestedBeaconTier = BeaconIdSet.getInt("tier");
                 interestedBeaconType = BeaconIdSet.getString("type");
                 interestedBeaconBroken = BeaconIdSet.getBoolean("broken");
@@ -280,26 +281,28 @@ public class BeaconStorage {
       
       public void createBeacon(List<Location> blocklocations, Info info){
     	  try {
-			insertBeacon.setString(1, info.type);
-			insertBeacon.setInt(2, info.tier);
-			insertBeacon.setLong(3, info.time);
-			insertBeacon.setBoolean(4, info.broken);
-			insertBeacon.setLong(5, info.brokenTime);
-			insertBeacon.setString(6, info.loc.getWorld().getName());
-			insertBeacon.setInt(7, info.loc.getBlockX());
-			insertBeacon.setInt(8, info.loc.getBlockY());
-			insertBeacon.setInt(9, info.loc.getBlockZ());
-			insertBeacon.setInt(10, info.hitPoints);
-			insertBeacon.setInt(11, info.classnum);
-			insertBeacon.execute();
-			for (Location loc : blocklocations){
-				insertBeaconStructure.setInt(1, info.beaconid);
-				insertBeaconStructure.setString(2, loc.getWorld().getName());
-				insertBeaconStructure.setInt(3, loc.getBlockX());
-				insertBeaconStructure.setInt(4, loc.getBlockY());
-				insertBeaconStructure.setInt(5, loc.getBlockZ());
-				insertBeaconStructure.execute();
-			}
+    		  insertBeacon.setString(1, info.type);
+              insertBeacon.setInt(2, info.tier);
+              insertBeacon.setLong(3, info.time);
+              insertBeacon.setBoolean(4, info.broken);
+              insertBeacon.setLong(5, info.brokenTime);
+              insertBeacon.setString(6, info.loc.getWorld().getName());
+              insertBeacon.setInt(7, info.loc.getBlockX());
+              insertBeacon.setInt(8, info.loc.getBlockY());
+              insertBeacon.setInt(9, info.loc.getBlockZ());
+              insertBeacon.setInt(10, info.hitPoints);
+              insertBeacon.setInt(11, info.classnum);
+              insertBeacon.execute();
+              int lastId = getLastId();
+              info.updateCorrectID(lastId);
+              for (Location loc : blocklocations){
+                      insertBeaconStructure.setInt(1, lastId);
+                      insertBeaconStructure.setString(2, loc.getWorld().getName());
+                      insertBeaconStructure.setInt(3, loc.getBlockX());
+                      insertBeaconStructure.setInt(4, loc.getBlockY());
+                      insertBeaconStructure.setInt(5, loc.getBlockZ());
+                      insertBeaconStructure.execute();
+              }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

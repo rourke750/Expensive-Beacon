@@ -30,19 +30,19 @@ public class Effects {
          for (Info run : ty) {   
                         	 long time = run.time + 60000 * config_.getLong("maturation_time");
                         	 if (System.currentTimeMillis() <= time) continue;
-                                 if(run.equals("speed")){
+                                 if(run.type.equals("speed")){
                                          setSpeedEffects(run.loc, run.tier);
                                  }
-                                 if(run.equals("strength")){
+                                 if(run.type.equals("strength")){
                                          setStrengthEffects(run.loc, run.tier);
                                  }
-                                 if(run.equals("regen")){
+                                 if(run.type.equals("regen")){
                                 	 setRegenEffects(run.loc, run.tier);
                                  }
-                                 if(run.equals("haste")){
+                                 if(run.type.equals("haste")){
                                 	 setHasteEffects(run.loc, run.tier);
                                  }
-                                 if(run.equals("super")){
+                                 if(run.type.equals("super")){
                                 	 setSuperEffects(run.loc, run.tier);
                                  }
                                  
