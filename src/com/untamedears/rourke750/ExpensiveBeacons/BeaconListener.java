@@ -90,10 +90,12 @@ public class BeaconListener implements Listener {
 			isBlock(event);
 		}
 	public void isBlock(BlockBreakEvent event){
+		int i = 0;
 		if(event.getBlock().getType().equals(Material.DIAMOND_BLOCK) || event.getBlock().getType().equals(Material.BEACON)) {
 			System.out.print("Diamond check yes");
 			if (sv.getChunkStructure() == null) return;
 			for (ChunkStructure str: sv.getChunkStructure()){
+				i++;
 				System.out.print("Went through chunk structures.");
 				List<Location> locs = str.struct;
 				for (Location loc: locs){
@@ -118,17 +120,17 @@ public class BeaconListener implements Listener {
 							event.setCancelled(true);
 							info.updateHitPoints(info.hitPoints-1);
 						}
-						return;
+						//return;
 					}
 				}
 			}
+			System.out.print("Amount of time looped was: "+ i);
 		}
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onChunkLoadEvent(ChunkLoadEvent event){
 		sv.addToCheckList(event.getChunk());
-		System.out.print("Chunk load event happened");
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)

@@ -10,5 +10,5 @@ public class FakeChunk {
 	}
 	public int x;
 	public int z;
-	World world;
+	public World world;
 }

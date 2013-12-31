@@ -90,16 +90,21 @@ public class StoredValues {
 		bs.saveAllBeacons(info.values());
 	}
 	public void addToCheckList(Chunk chunk){
-		FakeChunk fakechunk = new FakeChunk(chunk.getX(), chunk.getZ(), chunk.getWorld());
-		if (struct.get(fakechunk) == null) return;			
-			System.out.print("Add to checklist worked");
-			checklist.add(struct.get(fakechunk));
+		for (FakeChunk x: struct.keySet()){
+			if (x.x == chunk.getX() && x.z == chunk.getZ() && x.world.equals(chunk.getWorld())){
+				System.out.print("Add to checklist worked");
+				checklist.add(struct.get(x));
+			}
+		}
 	}
 	public void removeCheckList(Chunk chunk){
-		FakeChunk fakechunk = new FakeChunk(chunk.getX(), chunk.getZ(), chunk.getWorld());
-		if (struct.get(fakechunk) == null) return;
-		System.out.print("Chunk unload occured");
-		checklist.remove(struct.get(fakechunk));
+		for (FakeChunk x: struct.keySet()){
+			if (x.x == chunk.getX() && x.z == chunk.getZ() && x.world.equals(chunk.getWorld())){
+				System.out.print("Chunk unload occured");
+				checklist.remove(struct.get(x));
+			}
+		}
+		if(!chunk.unload()) chunk.unload();
 	}
 	public List<ChunkStructure> getChunkStructure(){
 		return checklist;
