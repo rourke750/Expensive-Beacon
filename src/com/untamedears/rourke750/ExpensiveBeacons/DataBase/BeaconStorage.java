@@ -37,12 +37,12 @@ public class BeaconStorage {
     private PreparedStatement getBeaconFromLocation;
     private PreparedStatement getBeaconStructureFromId;
     private PreparedStatement deleteBeaconId;
-    private PreparedStatement deleteBeaconStructure;
     private PreparedStatement insertBeacon;
     private PreparedStatement insertBeaconStructure;
     private PreparedStatement getBeaconIds;
     private PreparedStatement getBeaconFromId;
     private PreparedStatement updateBeacon;
+    private PreparedStatement getBeaconIdFromLocation;
     private int lastBeaconId;
     
     
@@ -96,12 +96,11 @@ public class BeaconStorage {
     }
     
     private void initializeStatements(){
-    	getBeaconFromLocation = db.prepareStatement(String.format("SELECT beacon_id, tier, type, creation, broken, class_num FROM %s "
+    	getBeaconFromLocation = db.prepareStatement(String.format("SELECT beacon_id, tier, type, creation, broken, broken_time, class_num, hit_points FROM %s "
                 + " WHERE block_x=? AND block_y=? AND block_z=? AND block_world=?", "beacons"));
     	getBeaconStructureFromId = db.prepareStatement(String.format("SELECT block_x, block_y, block_z, block_world FROM %s "
     			+ " WHERE beacon_id=?", "beacon_blocks"));
     	deleteBeaconId = db.prepareStatement(String.format("DELETE FROM %s WHERE beacon_id=?", "beacons"));
-    	deleteBeaconStructure = db.prepareStatement(String.format("DELETE FROM %s WHERE beacon_id=?", "beacon_blocks"));
     	insertBeacon = db.prepareStatement(String.format("INSERT INTO %s "
     			+ "(type, tier, creation, broken, broken_time, block_world, block_x, "
     			+ "block_y, block_z, hit_points, class_num)"
@@ -117,11 +116,12 @@ public class BeaconStorage {
     			"SELECT LAST_INSERT_ID() AS id ", "beacons"));
     	updateBeacon = db.prepareStatement(String.format(
     			"UPDATE %s SET broken=?, broken_time=?, hit_points=? WHERE beacon_id=?", "beacons"));
+    	getBeaconIdFromLocation = db.prepareStatement(String.format("SELECT beacon_id FROM %s WHERE block_x=? AND block_y=? AND block_z=? AND block_world=?", "beacon_blocks"));
     	
     }
     
-    public List<Block> getBeaconStructure(int id) {
-        List<Block> blocks = new ArrayList<Block>();
+    public List<Location> getBeaconStructure(int id) {
+        List<Location> locations = new ArrayList<Location>();
         try {
         	
         	getBeaconStructureFromId.setInt(1, id);
@@ -136,21 +136,21 @@ public class BeaconStorage {
                 int z = BeaconStructureSet.getInt("block_z");
             	Location loc = new Location(world, x, y, z);
                 didFind = true;
-                blocks.add(loc.getBlock());
+                locations.add(loc);
             }
 
             // only continue if we actually got a result from the first query
             if (!didFind) {
                 this.plugin.getLogger().log(Level.SEVERE, "Didn't get any results trying to find a beacon in the beacons table at id: " + id);
             } else {
-                return blocks;
+                return locations;
             }
 
         } catch (SQLException ex1) {
             this.plugin.getLogger().log(Level.SEVERE, "Could not get Beacon Details! id: " + id, ex1);
         }
 
-        return blocks;
+        return locations;
     }
     
     public Info getBeaconInfo(Location loc){
@@ -172,7 +172,7 @@ public class BeaconStorage {
         	getBeaconFromLocation.setString(4, loc.getWorld().getName());
 
             ResultSet BeaconIdSet = getBeaconFromLocation.executeQuery();
-            BeaconIdSet.next();
+            if (BeaconIdSet == null || !BeaconIdSet.next()) return null;
                 interestedBeaconId = BeaconIdSet.getInt("beacon_id");
                 interestedBeaconTier = BeaconIdSet.getInt("tier");
                 interestedBeaconType = BeaconIdSet.getString("type");
@@ -231,9 +231,28 @@ public class BeaconStorage {
         return info;
     }
     
-    
+    public int getBeaconPrimaryId(Location loc){
+    	int id = -1;
+    	try {
+    	getBeaconIdFromLocation.setInt(1, loc.getBlockX());
+    	getBeaconIdFromLocation.setInt(2, loc.getBlockY());
+    	getBeaconIdFromLocation.setInt(3, loc.getBlockZ());
+	    getBeaconIdFromLocation.setString(4, loc.getWorld().getName());
+	    ResultSet BeaconId = getBeaconIdFromLocation.executeQuery();
+	    if (BeaconId == null || !BeaconId.next()) return -1;
+    	id = BeaconId.getInt("beacon_id");
+    	return id;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.print("Could not find beacon id from beacon structure ");
+			e.printStackTrace();
+		}
+    	
+    	return id;
+    }
     
       public void deleteBeacon(int id){
+    	  System.out.print("Beacon deleted: "+id);
     	  try {
 			deleteBeaconId.setInt(1, id);
 			deleteBeaconId.execute();

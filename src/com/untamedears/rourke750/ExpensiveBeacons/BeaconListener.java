@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -29,23 +30,26 @@ import com.untamedears.citadel.Citadel;
 import com.untamedears.citadel.entity.IReinforcement;
 import com.untamedears.citadel.entity.PlayerReinforcement;
 import com.untamedears.citadel.events.PlayerDamageReinforcementEvent;
-import com.untamedears.rourke750.ExpensiveBeacons.DataBase.ChunkStructure;
 import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
 
 public class BeaconListener implements Listener {
 	private MultiBlockStructure multi;
 	private StoredValues sv;
 	private ExpensiveBeaconsPlugin plugin;
-
 	public BeaconListener(MultiBlockStructure multi, StoredValues store, ExpensiveBeaconsPlugin plugin) {
 		this.multi = multi;
 		sv = store;
 		this.plugin=plugin;
 	}
-
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onCitadelDamageEvent(PlayerDamageReinforcementEvent event){
+		// Since Blood crew op must cancel citadel event // ignore all this <-------------------------
+		Info info = sv.getBeaconInfo(event.getBlock().getLocation());
+		if (info != null) event.setCancelled(true);
+	}
+	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockPlace(BlockPlaceEvent event) {
-		Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
 		if (event.getBlock().getType().equals(Material.BEACON)) {
 			Location loc = event.getBlock().getLocation();
 			String groupName = null;
@@ -75,9 +79,12 @@ public class BeaconListener implements Listener {
 					info.updateBrokenTime(System.currentTimeMillis());
 				}
 				if(info.broken){
-					long brokentime = info.brokenTime + 60000 * plugin.getConfig().getLong("beacon_death_invulnerability");
+					long config = plugin.getConfig().getLong("beacon_death_invulnerability");
+					long brokentime = info.brokenTime + 60000 * config;
+					event.getPlayer().sendMessage("Beacon is now broken, please wait "+ Math.abs(((System.currentTimeMillis()- info.brokenTime)/60000
+							-config))+" minutes until beacon is broken.");
 					if(brokentime <= System.currentTimeMillis()){
-						sv.removeBeaconInfo(loc, info.beaconid);
+						sv.removeBeaconInfo(info.beaconid);
 					}
 					else event.setCancelled(true);
 				}
@@ -87,30 +94,26 @@ public class BeaconListener implements Listener {
 				info.updateHitPoints(info.hitPoints-1);
 			}
 			}
-			isBlock(event);
+		isBlock(event);
 		}
+	
 	public void isBlock(BlockBreakEvent event){
-		int i = 0;
 		if(event.getBlock().getType().equals(Material.DIAMOND_BLOCK) || event.getBlock().getType().equals(Material.BEACON)) {
 			System.out.print("Diamond check yes");
-			if (sv.getChunkStructure() == null) return;
-			for (ChunkStructure str: sv.getChunkStructure()){
-				i++;
-				System.out.print("Went through chunk structures.");
-				List<Location> locs = str.struct;
-				for (Location loc: locs){
-					if (event.getBlock().getLocation().equals(loc)){
-						System.out.print("Found a match");
-						Info info =sv.getBeaconInfo(str.mainbecid);
+			Info info = sv.isInDatabase(event.getBlock().getLocation());
+			if (info != null){
 						if (info.hitPoints==0){
 							if(!info.broken){
 								info.updateIfBroken(true);
 								info.updateBrokenTime(System.currentTimeMillis());
 							}
 							if(info.broken){
-								long brokentime = info.brokenTime + 60000 * plugin.getConfig().getLong("beacon_death_invulnerability");
+								long config = plugin.getConfig().getLong("beacon_death_invulnerability");
+								long brokentime = info.brokenTime + 60000 * config;
+								event.getPlayer().sendMessage("Beacon is now broken, please wait "+ Math.abs(((System.currentTimeMillis()- info.brokenTime)/60000
+										-config))+" minutes until beacon is broken.");
 								if(brokentime <= System.currentTimeMillis()){
-									sv.removeBeaconInfo(loc, info.beaconid);
+									sv.removeBeaconInfo(info.beaconid);
 								}
 								else event.setCancelled(true);
 							}
@@ -120,23 +123,11 @@ public class BeaconListener implements Listener {
 							event.setCancelled(true);
 							info.updateHitPoints(info.hitPoints-1);
 						}
-						//return;
-					}
+						return;
 				}
-			}
-			System.out.print("Amount of time looped was: "+ i);
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onChunkLoadEvent(ChunkLoadEvent event){
-		sv.addToCheckList(event.getChunk());
-	}
-	
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onChunkUnLoadEvent(ChunkUnloadEvent event){
-		sv.removeCheckList(event.getChunk());
-	}
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerOpenInventory(InventoryOpenEvent event) {
 		if (event.getInventory() instanceof BeaconInventory)

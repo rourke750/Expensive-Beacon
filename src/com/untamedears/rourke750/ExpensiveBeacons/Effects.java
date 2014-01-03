@@ -25,7 +25,7 @@ public class Effects {
 	
 	// Thank you Iebagi for making this code more efficient.
 	Logger logger = Logger.getLogger(ExpensiveBeaconsPlugin.class.getName());
-	 public void runEffects(Map<Location, Info> info) {
+	 public void runEffects(Map<Integer, Info> info) {
          Collection<Info> ty = info.values();
          for (Info run : ty) {   
                         	 long time = run.time + 60000 * config_.getLong("maturation_time");
