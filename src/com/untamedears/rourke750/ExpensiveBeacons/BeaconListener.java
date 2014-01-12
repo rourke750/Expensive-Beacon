@@ -19,6 +19,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -47,7 +49,18 @@ public class BeaconListener implements Listener {
 		Info info = sv.getBeaconInfo(event.getBlock().getLocation());
 		if (info != null) event.setCancelled(true);
 	}
-	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPistonRetractEvent(BlockPistonRetractEvent event){
+		if (sv.isInDatabase(event.getRetractLocation()) == null) return;
+		event.setCancelled(true);
+	}
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPistonExtendEvent(BlockPistonExtendEvent event){
+		for (Block block: event.getBlocks()){
+			if (sv.isInDatabase(block.getLocation()) == null) continue;
+			event.setCancelled(true);
+		}
+	}
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockPlace(BlockPlaceEvent event) {
 		if (event.getBlock().getType().equals(Material.BEACON)) {
@@ -71,6 +84,11 @@ public class BeaconListener implements Listener {
 			Info info = sv.getBeaconInfo(loc);
 			if (info == null){
 				isBlock(event);
+				return;
+			}
+			long time = info.time+ 60000 * plugin.getConfig().getLong("maturation_time");
+			if (System.currentTimeMillis() <= time){
+				sv.removeBeaconInfo(info.beaconid);
 				return;
 			}
 			if (info.hitPoints==0){
@@ -99,9 +117,13 @@ public class BeaconListener implements Listener {
 	
 	public void isBlock(BlockBreakEvent event){
 		if(event.getBlock().getType().equals(Material.DIAMOND_BLOCK) || event.getBlock().getType().equals(Material.BEACON)) {
-			System.out.print("Diamond check yes");
 			Info info = sv.isInDatabase(event.getBlock().getLocation());
 			if (info != null){
+				long time = info.time+ 60000 * plugin.getConfig().getLong("maturation_time");
+				if (System.currentTimeMillis() <= time){
+					sv.removeBeaconInfo(info.beaconid);
+					return;
+				}
 						if (info.hitPoints==0){
 							if(!info.broken){
 								info.updateIfBroken(true);
@@ -119,7 +141,6 @@ public class BeaconListener implements Listener {
 							}
 						}
 						else{
-							System.out.print("Event was cancelled and subtracted one health");
 							event.setCancelled(true);
 							info.updateHitPoints(info.hitPoints-1);
 						}

@@ -28,7 +28,8 @@ public class ConfigManager {
 		+ "			range: The range that the tier 1 speed beacon checks.\r\n" 
 		+ "maturation_time: The amount of time for a beacon to become active, in minutes.\r\n"
 		+ "beacon_hitpoints: The amount of breaks it takes to destroy the entire structure. 356210 is about the time of 20 layers of dro.\r\n"
-		+ "beacon_death_invulnerability: The amount of time the beacon stays invulnerable after it's hitpoints reach zero.\r\n");
+		+ "beacon_death_invulnerability: The amount of time the beacon stays invulnerable after it's hitpoints reach zero.\r\n"
+		+ "beacon_repair_time: The amount of time it takes to run the repair method. In ticks.\r\n");
 		
 		if (!config.contains("apply_effects")){
 			config.set("apply_effects", 1200);
@@ -110,6 +111,9 @@ public class ConfigManager {
 		}
 		if (!config.contains("beacon_death_invulnerability")){
 			config.set("beacon_death_invulnerability", 1440);
+		}
+		if (!config.contains("beacon_repair_time")){
+			config.set("beacon_repair_time", 72000);
 		}
 		if (!config.contains("sql.hostname")){
 			config.set("sql.hostname", "localhost");

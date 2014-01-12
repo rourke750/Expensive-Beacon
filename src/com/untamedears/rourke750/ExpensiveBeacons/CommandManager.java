@@ -26,6 +26,10 @@ public class CommandManager implements CommandExecutor{
 		
 		if (command.getName().equals("eb_refresh")) return ph.playerHelperCommand(player, block, args, true);
 	
+		if (command.getName().equals("eb_info")) return ph.infoStructure(player);
+		
+		if (command.getName().equals("beaconplus")) return ph.fuckBeaconPlus(player);
+		
 		return false;
 	}
 	

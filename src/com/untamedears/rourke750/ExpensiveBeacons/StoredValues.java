@@ -1,13 +1,10 @@
 package com.untamedears.rourke750.ExpensiveBeacons;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 import com.untamedears.rourke750.ExpensiveBeacons.DataBase.BeaconStorage;
@@ -27,6 +24,11 @@ public class StoredValues {
 					saveMethod();
 			}
 		}, 0, plugin.getConfig().getInt("save"));
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			public void run() {
+				autoRepairMethod();
+			}
+		}, 0, plugin.getConfig().getInt("beacon_repair_time"));
 	}
 	private ExpensiveBeaconsPlugin plugin;
 	private Map<Integer, Info> info = new HashMap<Integer, Info>();
@@ -50,9 +52,10 @@ public class StoredValues {
 		if (in == null) return null;
 		return info.get(in.beaconid);
 	}
-	public void removeBeaconInfo(int id){
-		info.remove(id);
+	public void removeBeaconInfo(Integer id){
+		System.out.print("Beacon Id removed: "+id);
 		bs.deleteBeacon(id);
+		info.remove(id);
 	}
 	public void addInfo(Info info){
 		this.info.put(info.beaconid, info);
@@ -78,5 +81,13 @@ public class StoredValues {
 		id = loadedInfo.get(loc);
 		Info info = this.info.get(id);
 		return info;
+	}
+	
+	public void autoRepairMethod(){
+		int addition = plugin.getConfig().getInt("beacon_hitpoints")/95;
+		for (Info in: info.values()){
+			if ((addition + in.hitPoints)>plugin.getConfig().getInt("beacon_hitpoints")) continue;
+			in.updateHitPoints(addition + in.hitPoints);
+		}
 	}
 }

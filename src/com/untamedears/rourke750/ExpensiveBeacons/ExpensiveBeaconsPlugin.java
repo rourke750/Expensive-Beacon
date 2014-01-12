@@ -106,7 +106,7 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		ls = new BeaconListener(ms, sv, this);
 		enableListener();
 				
-		PlayerHelper ph = new PlayerHelper(meta);
+		PlayerHelper ph = new PlayerHelper(meta, sv);
 		CommandManager com = new CommandManager(ph);
 		for (String command : getDescription().getCommands().keySet()) {
             getCommand(command).setExecutor(com);

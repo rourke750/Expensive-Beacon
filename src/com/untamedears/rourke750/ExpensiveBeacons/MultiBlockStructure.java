@@ -56,7 +56,6 @@ public class MultiBlockStructure {
 				sv.addInfo(info);
 				sv.createBeacon(locations, info);
 				if (type=="super"){
-					System.out.print("Super created running delete");
 					Location locs = new Location(loc.getWorld(), loc.getX()-1, loc.getY(), loc.getZ());
 					Info in = sv.getBeaconInfo(locs);
 					if (in !=null) sv.removeBeaconInfo(in.beaconid);

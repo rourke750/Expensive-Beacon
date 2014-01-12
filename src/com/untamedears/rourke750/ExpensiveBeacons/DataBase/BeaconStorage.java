@@ -1,6 +1,5 @@
 package com.untamedears.rourke750.ExpensiveBeacons.DataBase;
 
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,18 +8,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 
-import net.minecraft.server.v1_6_R3.IInventory;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Beacon;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftInventory;
-import org.bukkit.inventory.Inventory;
-
-import com.untamedears.rourke750.ExpensiveBeacons.ConfigManager;
 import com.untamedears.rourke750.ExpensiveBeacons.Effects;
 import com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsPlugin;
 
@@ -252,7 +243,6 @@ public class BeaconStorage {
     }
     
       public void deleteBeacon(int id){
-    	  System.out.print("Beacon deleted: "+id);
     	  try {
 			deleteBeaconId.setInt(1, id);
 			deleteBeaconId.execute();
@@ -282,11 +272,9 @@ public class BeaconStorage {
       public int getLastId() {
     	  try {
 			if (getLastBeaconID.execute()) {
-				System.out.print("Id from get last id executed"+ lastBeaconId);
 				  ResultSet rsKey = getLastBeaconID.getResultSet();
 				  if (rsKey.next()) {
 					  lastBeaconId = rsKey.getInt("id");
-					  System.out.print("Id from get last id was successful "+lastBeaconId);
 					  rsKey.close();
 					  return lastBeaconId;
 				  }

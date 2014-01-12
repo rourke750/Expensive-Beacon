@@ -6,10 +6,14 @@ import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
+
 public class PlayerHelper {
 	private StaticBeaconMeta meta;
-	public PlayerHelper(StaticBeaconMeta meta){
+	private StoredValues sv;
+	public PlayerHelper(StaticBeaconMeta meta, StoredValues sv){
 		this.meta = meta;
+		this.sv = sv;
 	}
 	
 		// Tells player where a block is missing.	
@@ -57,8 +61,30 @@ public class PlayerHelper {
 		public boolean playerHelp(Player player){
 			player.sendMessage(ChatColor.BLUE+ "List of possible commands: \r\n" +
 					"eb_check <beacontype> <tier>: shows how to build the specific beacon. \n"+
-					"eb_refresh <beacontype> <tier>: removes the fake blocks, make sure you are looking at the beacon.");
+					"eb_refresh <beacontype> <tier>: removes the fake blocks, make sure you are looking at the beacon.\n"+
+					"eb_info: while pointing at a beacon structure this command gives you information on the beacon.");
 			return true;
+		}
+		
+		@SuppressWarnings("deprecation")
+		public boolean infoStructure(Player player){
+			Block structure = player.getTargetBlock(null, 5);
+			Info info = sv.getBeaconInfo(structure.getLocation());
+			if (info == null){
+				player.sendMessage("You are not pointing at a beacon structure.");
+				return true;
+			}
+			player.sendMessage(ChatColor.BLUE + "Information on current beacon as follows: \r\n"
+					+ "Beacon hit points: " + info.hitPoints + ".\n"
+					+ "Beacon broken: " + info.broken + ".\n"
+					+ "Beacon type: " + info.type + ".\n"
+					+ "Beacon tier: " + info.tier + ".\n");
+			return true;
+		}
+		
+		public boolean fuckBeaconPlus(Player player){
+		player.sendMessage(ChatColor.RED + "GO FUCK YOUR SELF, THIS IS EXPENSIVE BEACONS.  EAT A POOP ROCK #ROURKE RANT!");
+		return true;
 		}
 		
 		public int checkBeaconTier(String args[], int tier){
