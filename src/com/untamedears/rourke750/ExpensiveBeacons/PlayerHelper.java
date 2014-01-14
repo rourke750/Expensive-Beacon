@@ -71,8 +71,11 @@ public class PlayerHelper {
 			Block structure = player.getTargetBlock(null, 5);
 			Info info = sv.getBeaconInfo(structure.getLocation());
 			if (info == null){
+				info = sv.isInDatabase(structure.getLocation());
+				if (info == null){
 				player.sendMessage("You are not pointing at a beacon structure.");
 				return true;
+				}
 			}
 			player.sendMessage(ChatColor.BLUE + "Information on current beacon as follows: \r\n"
 					+ "Beacon hit points: " + info.hitPoints + ".\n"
