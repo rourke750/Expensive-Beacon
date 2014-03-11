@@ -1,6 +1,6 @@
 name: Expensive Beacons
 main: com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsPlugin
-version: 2.03
+version: 2.05
 author: Rourke750
 commands:
    eb:
@@ -9,15 +9,20 @@ commands:
    eb_check:
       description: Builds what the beacon will look like.
       usage: /<command> <type> <tier>
-      aliases: [eb_c, eb_ch, eb_build]
+      aliases: [eb_c, eb_ch, eb_build, ebc]
    eb_refresh:
       description: Refreshes the chunks with real blocks.
       usage: /<command> <type> <tier>
-      aliases: [eb_r, eb_re]
+      aliases: [eb_r, eb_re, ebr]
    eb_info:
       description: Checks information on beacon structure the player is looking at.
       usage: /<command>
-      alias: eb_i
+      aliases: [eb_i, ebi]
    beaconplus:
       description:
       usage: /<command>
+      aliases: [betterbeacons, beaconsplus]
+   eb_fix:
+      description: Fixes a beacon when broken.
+      usage: /<command>
+      aliases: [eb_f, ebf]

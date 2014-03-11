@@ -1,19 +1,31 @@
 package com.untamedears.rourke750.ExpensiveBeacons;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import com.untamedears.citadel.Citadel;
+import com.untamedears.citadel.entity.Faction;
+import com.untamedears.citadel.entity.IReinforcement;
+import com.untamedears.citadel.entity.PlayerReinforcement;
 import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
 
 public class PlayerHelper {
 	private StaticBeaconMeta meta;
 	private StoredValues sv;
-	public PlayerHelper(StaticBeaconMeta meta, StoredValues sv){
+	private FileConfiguration config;
+	public PlayerHelper(StaticBeaconMeta meta, StoredValues sv, FileConfiguration config){
 		this.meta = meta;
 		this.sv = sv;
+		this.config = config;
 	}
 	
 		// Tells player where a block is missing.	
@@ -77,6 +89,16 @@ public class PlayerHelper {
 				return true;
 				}
 			}
+			Faction group = null;
+			IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(info.loc);
+	        if (rein != null && rein instanceof PlayerReinforcement) {
+	                group = ((PlayerReinforcement) rein).getOwner();
+	        }
+	        if (group != null)
+	        	if (!group.isFounder(player.getName()) && !group.isModerator(player.getName())){
+	        		player.sendMessage(ChatColor.RED + "You are not on the group!");
+	        		return true;
+	        	}
 			player.sendMessage(ChatColor.BLUE + "Information on current beacon as follows: \r\n"
 					+ "Beacon hit points: " + info.hitPoints + ".\n"
 					+ "Beacon broken: " + info.broken + ".\n"
@@ -86,7 +108,7 @@ public class PlayerHelper {
 		}
 		
 		public boolean fuckBeaconPlus(Player player){
-		player.sendMessage(ChatColor.RED + "GO FUCK YOUR SELF, THIS IS EXPENSIVE BEACONS.  EAT A POOP ROCK #ROURKE RANT!");
+		player.sendMessage(ChatColor.RED + "GO FUCK YOUR SELF, THIS IS EXPENSIVE BEACONS!");
 		return true;
 		}
 		
@@ -129,5 +151,70 @@ public class PlayerHelper {
 				break;
 			}
 			return x;
+		}
+		
+		@SuppressWarnings("deprecation")
+		public boolean repairBeacon(Player player){
+			Block structure = player.getTargetBlock(null, 5);
+			Info info = sv.getBeaconInfo(structure.getLocation());
+			if (info == null){
+				info = sv.isInDatabase(structure.getLocation());
+				if (info == null){
+				player.sendMessage("You are not pointing at a beacon structure.");
+				return true;
+				}
+			}
+			Faction group = null;
+			IReinforcement rein = Citadel.getReinforcementManager().getReinforcement(info.loc);
+	        if (rein != null && rein instanceof PlayerReinforcement) {
+	                group = ((PlayerReinforcement) rein).getOwner();
+	        }
+	        if (group != null)
+	        	if (!group.isFounder(player.getName()) && !group.isModerator(player.getName())){
+	        		player.sendMessage(ChatColor.RED + "You are not on the group!");
+	        		return true;
+	        	}
+	        if (info.broken) {
+	        	int itemid = config.getInt("beacon_force_repair_id");
+	        	int itemcost = config.getInt("beacon_force_repair_cost");
+	        	int eat = itemcost;
+	        	Material mat = Material.getMaterial(itemid);
+	        	Inventory inv = player.getInventory();
+	        	List<Integer> slots = new ArrayList<Integer>(itemcost);
+	        	if (inv.contains(mat, itemcost)){
+	        		for (int slot = 0; slot < inv.getSize() && itemcost != 0; slot++){
+	        			ItemStack item = inv.getItem(slot);
+	        			if (item == null) continue;
+	        			if (!item.getType().equals(mat)) continue;
+	        			itemcost--;
+	        			slots.add(slot);
+	        		}
+	        		for (int slot: slots){
+	        			if (eat <= 0) break;
+	        			ItemStack item = inv.getItem(slot);
+	        			int size = item.getAmount();
+	        			int deduction = Math.min(size, eat);
+	        			if (deduction < size){
+	        				item.setAmount(size - deduction);
+	        			}
+	        			else inv.clear(slot);
+	        			eat -= deduction;
+	        		}
+	        	}
+	        	else{
+	        		player.sendMessage(ChatColor.RED + "You do not have enough: " + mat.toString() + " to repair this. \nYou need"
+	        				+ " at least " + itemcost +".");
+	        		return true;
+	        		}
+	        	info.updateIfBroken(false);
+	        	info.updateBrokenTime(0);
+	        	info.updateHitPoints(config.getInt("beacon_hitpoints"));
+	        	player.sendMessage(ChatColor.BLUE + "Beacon has been repaired!");
+	        	return true;
+	        	}
+	        else {
+	        	player.sendMessage(ChatColor.RED + "Beacon is not broken.");
+	        }
+	        return true;
 		}
 }

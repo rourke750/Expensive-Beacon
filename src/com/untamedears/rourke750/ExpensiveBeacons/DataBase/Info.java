@@ -1,6 +1,5 @@
 package com.untamedears.rourke750.ExpensiveBeacons.DataBase;
 
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 public class Info {
@@ -14,7 +13,6 @@ public class Info {
 	      this.hitPoints = hitPoints;
 	      this.loc = loc;
 	      this.classnum = classnum;
-	      this.chunks = loc.getChunk();
 	    }
 	    public int beaconid;
 	    public int tier;
@@ -25,7 +23,6 @@ public class Info {
 	    public int hitPoints;
 	    public Location loc;
 	    public int classnum;
-	    public Chunk chunks;
 	    
 	    public void updateCorrectID(int x){
 	    	beaconid = x;
