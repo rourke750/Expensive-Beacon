@@ -18,3 +18,12 @@ But here is the best part, once you have successfully destroyed a beacon it will
 Dev.Bukkit.org page
 ========
 http://dev.bukkit.org/bukkit-plugins/expensive-beacons/
+
+How to Build a Beacon
+=====
+https://www.youtube.com/watch?v=ZNYysa9NOuU
+https://www.youtube.com/watch?v=oPGrF-CsRHI&list=UUK9OMKJNKkGTvBK_KwEJtgA
+
+Cost of Each Beacon
+============
+https://docs.google.com/document/d/1uFrIy9y7ohqbIpaRh8jDKW06z2rcON9d69G72xdwcFY/edit?usp=sharing
