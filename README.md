@@ -6,9 +6,22 @@ The affect only applies to the group that the beacon is reinforced with.
 
 How to build the beacons can be found by doing /eb_c <type> <tier> and by pointing at a beacon and it will build how the strcuture looks.
 
+Quick Tutorial
+========
+http://imgur.com/a/eatWs
+
 Current Beacons
 ====
 Beacon kinds are as follows; speed, strength, haste, regen, and super.  Each tier of each beacon increases the range and after tier four the level of the effect.  This applies to all beacons except the mega beacon which has only one tier and has a huge range and level 2 of each potion effect.
+
+Commands
+===========
+So few commands you should get to know:
+
+1. /eb_create <type> <tier>: this command creates fake blocks around a beacon which shows exactly how to build it.
+2. /eb_refresh <type> <tier>: This refreshes the blocks around you.
+3. /eb_info: While looking at a beacon this command gives general information about the status of the beacon.
+4. eb_fix: While having the correct amount of materials in your inventory, this command fixes a beacon while it is broken.
 
 Current Development
 =========
