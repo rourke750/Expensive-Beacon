@@ -22,6 +22,7 @@ http://dev.bukkit.org/bukkit-plugins/expensive-beacons/
 How to Build a Beacon
 =====
 https://www.youtube.com/watch?v=ZNYysa9NOuU
+
 https://www.youtube.com/watch?v=oPGrF-CsRHI&list=UUK9OMKJNKkGTvBK_KwEJtgA
 
 Cost of Each Beacon
