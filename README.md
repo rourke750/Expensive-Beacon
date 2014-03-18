@@ -8,7 +8,7 @@ How to build the beacons can be found by doing /eb_c <type> <tier> and by pointi
 
 Current Beacons
 ====
-Beacon kinds are as follows; speed, strength, haste, regen, and mega.  Each tier of each beacon increases the range and after tier four the level of the effect.  This applies to all beacons except the mega beacon which has only one tier and has a huge range and level 2 of each potion effect.
+Beacon kinds are as follows; speed, strength, haste, regen, and super.  Each tier of each beacon increases the range and after tier four the level of the effect.  This applies to all beacons except the mega beacon which has only one tier and has a huge range and level 2 of each potion effect.
 
 Current Development
 =========
