@@ -106,11 +106,7 @@ public class PlayerHelper {
 					+ "Beacon tier: " + info.tier + ".\n");
 			return true;
 		}
-		
-		public boolean fuckBeaconPlus(Player player){
-		player.sendMessage(ChatColor.RED + "GO FUCK YOUR SELF, THIS IS EXPENSIVE BEACONS!");
-		return true;
-		}
+
 		
 		public int checkBeaconTier(String args[], int tier){
 			int x = 0;
