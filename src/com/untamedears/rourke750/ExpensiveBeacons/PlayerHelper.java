@@ -61,7 +61,7 @@ public class PlayerHelper {
 			}
 			
 			if (tier<1 || tier>5){
-				player.sendMessage(ChatColor.BLUE+"Tier must be greater than five or less than one.");
+				player.sendMessage(ChatColor.BLUE+"Valid tier numbers are 1, 2, 3, 4, or 5");
 				return true;
 			}
 			int x = checkBeaconTier(args, tier);
@@ -106,11 +106,7 @@ public class PlayerHelper {
 					+ "Beacon tier: " + info.tier + ".\n");
 			return true;
 		}
-		
-		public boolean fuckBeaconPlus(Player player){
-		player.sendMessage(ChatColor.RED + "GO FUCK YOUR SELF, THIS IS EXPENSIVE BEACONS!");
-		return true;
-		}
+
 		
 		public int checkBeaconTier(String args[], int tier){
 			int x = 0;

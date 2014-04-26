@@ -28,8 +28,6 @@ public class CommandManager implements CommandExecutor{
 	
 		if (command.getName().equals("eb_info")) return ph.infoStructure(player);
 		
-		if (command.getName().equals("beaconplus")) return ph.fuckBeaconPlus(player);
-		
 		if (command.getName().equals("eb_fix")) return ph.repairBeacon(player);
 		
 		return false;
