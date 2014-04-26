@@ -61,7 +61,7 @@ public class PlayerHelper {
 			}
 			
 			if (tier<1 || tier>5){
-				player.sendMessage(ChatColor.BLUE+"Tier must be greater than five or less than one.");
+				player.sendMessage(ChatColor.BLUE+"Tier must be greater than zero or less or equal to five");
 				return true;
 			}
 			int x = checkBeaconTier(args, tier);
