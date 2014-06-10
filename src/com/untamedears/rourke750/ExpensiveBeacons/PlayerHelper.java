@@ -61,7 +61,7 @@ public class PlayerHelper {
 			}
 			
 			if (tier<1 || tier>5){
-				player.sendMessage(ChatColor.BLUE+"Tier must be greater than five or less than one.");
+				player.sendMessage(ChatColor.BLUE+"Tier must be a number from 1 to 5.");
 				return true;
 			}
 			int x = checkBeaconTier(args, tier);
@@ -74,7 +74,8 @@ public class PlayerHelper {
 			player.sendMessage(ChatColor.BLUE+ "List of possible commands: \r\n" +
 					"eb_check <beacontype> <tier>: shows how to build the specific beacon. \n"+
 					"eb_refresh <beacontype> <tier>: removes the fake blocks, make sure you are looking at the beacon.\n"+
-					"eb_info: while pointing at a beacon structure this command gives you information on the beacon.");
+					"eb_info: while pointing at a beacon structure this command gives you information on the beacon.\n"
+					+ "eb_fix: while looking at a beacon structure this command repairs the beacon after it is in invulnerability mode.");
 			return true;
 		}
 		
