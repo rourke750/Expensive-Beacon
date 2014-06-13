@@ -9,11 +9,13 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -83,8 +85,17 @@ public class BeaconListener implements Listener {
 			if (rein instanceof PlayerReinforcement) {
 				groupName = ((PlayerReinforcement) rein).getOwner().getName();
 			}
+			List<Location> locs = sv.getAllBeaconLocations();
+			for (Location l: locs){ // check if the beacon placed is close to another beacon
+				if (!findSide(loc) && loc.distance(l) <= 32){
+					event.getPlayer().sendMessage(ChatColor.RED + "Beacon is too close to another Beacon!\n"
+							+ "Either place next to a beacon or farther away from the other one.");
+					event.setCancelled(true);
+					return;
+				}
+			}
 			if (groupName == null) {
-				event.getPlayer().sendMessage("Reinforce the Beacon."); // tells
+				event.getPlayer().sendMessage("Reinforce the Beacon, if the beacon strcuture is set up."); // tells
 																		// players
 																		// to
 																		// reinforce
@@ -93,6 +104,13 @@ public class BeaconListener implements Listener {
 			}
 			multi.checkBuild(loc);
 		}
+	}
+	
+	public boolean findSide(Location loc){
+		BlockFace[] faces = {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST};
+		for (BlockFace face: faces)
+			if (loc.getBlock().getRelative(face).getType().equals(Material.BEACON)) return true;
+		return false;
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)

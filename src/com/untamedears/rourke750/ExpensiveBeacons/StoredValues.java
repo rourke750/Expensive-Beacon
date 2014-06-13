@@ -1,5 +1,6 @@
 package com.untamedears.rourke750.ExpensiveBeacons;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,13 @@ public class StoredValues {
 	private Map<Integer, Info> info = new HashMap<Integer, Info>();
 	private Map<Location, Integer> loadedInfo = new HashMap<Location, Integer>();
 	private BeaconStorage bs;
+	
+	public List<Location> getAllBeaconLocations(){
+		List<Location> locs = new ArrayList<Location>();
+		for (Info in: info.values())
+			locs.add(in.loc);
+		return locs;
+	}
 	
 	public void addStoredInfo(){
 		Info in;
