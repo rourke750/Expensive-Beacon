@@ -96,7 +96,7 @@ public class PlayerHelper {
 	                group = ((PlayerReinforcement) rein).getOwner();
 	        }
 	        if (group != null)
-	        	if (!group.isFounder(player.getName()) && !group.isModerator(player.getName())){
+	        	if (!group.isFounder(player.getUniqueId()) && !group.isModerator(player.getUniqueId())){
 	        		player.sendMessage(ChatColor.RED + "You are not on the group!");
 	        		return true;
 	        	}
@@ -171,7 +171,7 @@ public class PlayerHelper {
 	                group = ((PlayerReinforcement) rein).getOwner();
 	        }
 	        if (group != null)
-	        	if (!group.isFounder(player.getName()) && !group.isModerator(player.getName())){
+	        	if (!group.isFounder(player.getUniqueId()) && !group.isModerator(player.getUniqueId())){
 	        		player.sendMessage(ChatColor.RED + "You are not on the group!");
 	        		return true;
 	        	}

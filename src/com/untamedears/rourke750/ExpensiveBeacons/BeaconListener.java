@@ -35,6 +35,7 @@ import org.bukkit.potion.PotionEffectType;
 import com.untamedears.citadel.Citadel;
 import com.untamedears.citadel.entity.IReinforcement;
 import com.untamedears.citadel.entity.PlayerReinforcement;
+import com.untamedears.citadel.events.AcidBlockDestroyEvent;
 import com.untamedears.citadel.events.PlayerDamageReinforcementEvent;
 import com.untamedears.rourke750.ExpensiveBeacons.DataBase.Info;
 
@@ -87,6 +88,7 @@ public class BeaconListener implements Listener {
 			}
 			List<Location> locs = sv.getAllBeaconLocations();
 			for (Location l: locs){ // check if the beacon placed is close to another beacon
+				System.out.println(l.toString());
 				if (!findSide(loc) && loc.distance(l) <= 32){
 					event.getPlayer().sendMessage(ChatColor.RED + "Beacon is too close to another Beacon!\n"
 							+ "Either place next to a beacon or farther away from the other one.");
@@ -207,6 +209,15 @@ public class BeaconListener implements Listener {
 	public void onPlayerOpenInventory(InventoryOpenEvent event) {
 		if (event.getInventory() instanceof BeaconInventory)
 			event.setCancelled(true);
+	}
+	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void acidBlockCommand(AcidBlockDestroyEvent event){
+		Block block = event.getAcidBlock().getRelative(BlockFace.UP);
+		if (sv.isInDatabase(block.getLocation()) == null)
+			return;
+		event.setCancelled(true);
+		event.setReasonForCancel(ChatColor.RED + "Cannot acid block a Beacon Structrue.");
 	}
 
 }

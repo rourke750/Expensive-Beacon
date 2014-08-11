@@ -121,4 +121,3 @@ public class ExpensiveBeaconsPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(ls, this);
 	}
 }
-

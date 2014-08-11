@@ -53,8 +53,8 @@ public class MultiBlockStructure {
 				long time = System.currentTimeMillis();
 				int hitpoints = plugin.getConfig().getInt("beacon_hitpoints");
 				Info info = new Info(id, tier, type, broken, time, 0, hitpoints, loc, classnum);
-				sv.addInfo(info);
 				sv.createBeacon(locations, info);
+				sv.addInfo(info);
 				if (type=="super"){
 					Location locs = new Location(loc.getWorld(), loc.getX()-1, loc.getY(), loc.getZ());
 					Info in = sv.getBeaconInfo(locs);
@@ -69,5 +69,4 @@ public class MultiBlockStructure {
 				}
 		}
 	}
-
 

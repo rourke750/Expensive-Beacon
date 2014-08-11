@@ -46,12 +46,10 @@ public class StoredValues {
 	public void addStoredInfo(){
 		Info in;
 		List<Integer> num = bs.getAllBeaconIds();
-		int i = 0;
 		for (int x=0; x<num.size(); x++){
-			int y=num.get(i);
+			int y=num.get(x);
 			in = bs.getBeaconInfo(y);
 			info.put(in.beaconid, in);
-			i++;
 		}
 		
 	}
@@ -61,7 +59,6 @@ public class StoredValues {
 		return info.get(in.beaconid);
 	}
 	public void removeBeaconInfo(Integer id){
-		System.out.print("Beacon Id removed: "+id);
 		bs.deleteBeacon(id);
 		info.remove(id);
 	}

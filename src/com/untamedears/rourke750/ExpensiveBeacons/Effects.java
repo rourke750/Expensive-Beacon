@@ -80,13 +80,13 @@ public class Effects {
 		}
 		for (Player name : Bukkit.getOnlinePlayers()) {
 
-			if (!group.isMember(name.getName())
-					&& !group.isModerator(name.getName())
-					&& !group.isFounder(name.getName())) {
+			if (!group.isMember(name.getUniqueId())
+					&& !group.isModerator(name.getUniqueId())
+					&& !group.isFounder(name.getUniqueId())) {
 				continue;
 			} else if (group.isPersonalGroup()) {
-				if (name.equals(Citadel.getPersonalGroupManager()
-						.getPersonalGroup(group.getName()).getOwnerName())) {
+				if (group.equals(Citadel.getPersonalGroupManager()
+						.getPersonalGroup(name.getUniqueId()).getGroupName())) {
 					effecttype(name, loc, dist, tier, level,
 							PotionEffectType.SPEED);
 				}
@@ -117,13 +117,13 @@ public class Effects {
 			return;
 		}
 		for (Player name : Bukkit.getOnlinePlayers()) {
-			if (!group.isMember(name.getName())
-					&& !group.isModerator(name.getName())
-					&& !group.isFounder(name.getName())) {
+			if (!group.isMember(name.getUniqueId())
+					&& !group.isModerator(name.getUniqueId())
+					&& !group.isFounder(name.getUniqueId())) {
 				continue;
 			} else if (group.isPersonalGroup()) {
-				if (name.equals(Citadel.getPersonalGroupManager()
-						.getPersonalGroup(group.getName()).getOwnerName())) {
+				if (group.equals(Citadel.getPersonalGroupManager()
+						.getPersonalGroup(name.getUniqueId()).getGroupName())) {
 					effecttype(name, loc, dist, tier, level,
 							PotionEffectType.INCREASE_DAMAGE);
 				}
@@ -155,13 +155,13 @@ public class Effects {
 			return;
 		}
 		for (Player name : Bukkit.getOnlinePlayers()) {
-			if (!group.isMember(name.getName())
-					&& !group.isModerator(name.getName())
-					&& !group.isFounder(name.getName())) {
+			if (!group.isMember(name.getUniqueId())
+					&& !group.isModerator(name.getUniqueId())
+					&& !group.isFounder(name.getUniqueId())) {
 				continue;
 			} else if (group.isPersonalGroup()) {
-				if (name.equals(Citadel.getPersonalGroupManager()
-						.getPersonalGroup(group.getName()).getOwnerName())) {
+				if (group.equals(Citadel.getPersonalGroupManager()
+						.getPersonalGroup(name.getUniqueId()).getGroupName())) {
 					effecttype(name, loc, dist, tier, level,
 							PotionEffectType.REGENERATION);
 				}
@@ -193,13 +193,13 @@ public class Effects {
 			return;
 		}
 		for (Player name : Bukkit.getOnlinePlayers()) {
-			if (!group.isMember(name.getName())
-					&& !group.isModerator(name.getName())
-					&& !group.isFounder(name.getName())) {
+			if (!group.isMember(name.getUniqueId())
+					&& !group.isModerator(name.getUniqueId())
+					&& !group.isFounder(name.getUniqueId())) {
 				continue;
 			} else if (group.isPersonalGroup()) {
-				if (name.equals(Citadel.getPersonalGroupManager()
-						.getPersonalGroup(group.getName()).getOwnerName())) {
+				if (group.equals(Citadel.getPersonalGroupManager()
+						.getPersonalGroup(name.getUniqueId()).getGroupName())) {
 					effecttype(name, loc, dist, tier, level,
 							PotionEffectType.FAST_DIGGING);
 				}
@@ -220,9 +220,9 @@ public class Effects {
 		}
 		for (Player name : Bukkit.getOnlinePlayers()) {
 			int level = 1;
-			if (!group.isMember(name.getName())
-					&& !group.isModerator(name.getName())
-					&& !group.isFounder(name.getName())) {
+			if (!group.isMember(name.getUniqueId())
+					&& !group.isModerator(name.getUniqueId())
+					&& !group.isFounder(name.getUniqueId())) {
 				level = 3;
 				PotionEffectType Types1[] = {PotionEffectType.WEAKNESS};
 				for (PotionEffectType type : Types1) {
@@ -233,8 +233,8 @@ public class Effects {
 				continue;
 			}
 			if (group.isPersonalGroup()) {
-				if (name.equals(Citadel.getPersonalGroupManager()
-						.getPersonalGroup(group.getName()).getOwnerName())) {
+				if (group.equals(Citadel.getPersonalGroupManager()
+						.getPersonalGroup(name.getUniqueId()).getGroupName())) {
 					PotionEffectType Types[] = { PotionEffectType.FAST_DIGGING,
 							PotionEffectType.REGENERATION,
 							PotionEffectType.INCREASE_DAMAGE,
@@ -269,10 +269,11 @@ public class Effects {
 			int level, PotionEffectType type) {
 		if (name.getLocation().getWorld() != loc.getWorld())
 			return;
-		if (loc.distance(name.getLocation()) <= dist[tier]) {
-			name.removePotionEffect(type);
+		double area = Math.sqrt( Math.pow((loc.getZ() - name.getLocation().getZ() ), 2) + 
+				Math.pow((loc.getX() - name.getLocation().getX() ), 2) );
+		if (area <= dist[tier]) {
 			name.addPotionEffect(new PotionEffect(type, config_
-					.getInt("apply_effects"), level));
+					.getInt("apply_effects"), level), true);
 		}
 
 	}
@@ -282,9 +283,8 @@ public class Effects {
 		if (name.getLocation().getWorld() != loc.getWorld())
 			return;
 		if (loc.distance(name.getLocation()) <= dist) {
-			name.removePotionEffect(type);
 			name.addPotionEffect(new PotionEffect(type, config_
-					.getInt("apply_effects"), level));
+					.getInt("apply_effects"), level), true);
 		}
 	}
 }
