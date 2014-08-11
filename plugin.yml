@@ -26,3 +26,4 @@ commands:
       description: Fixes a beacon when broken.
       usage: /<command>
       aliases: [eb_f, ebf]
+      
