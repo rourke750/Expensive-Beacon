@@ -1,6 +1,6 @@
 name: Expensive Beacons
 main: com.untamedears.rourke750.ExpensiveBeacons.ExpensiveBeaconsPlugin
-version: 2.10
+version: 2.11
 author: Rourke750
 commands:
    eb:
@@ -26,4 +26,3 @@ commands:
       description: Fixes a beacon when broken.
       usage: /<command>
       aliases: [eb_f, ebf]
-      

@@ -204,12 +204,6 @@ public class BeaconListener implements Listener {
 			}
 		}
 	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerOpenInventory(InventoryOpenEvent event) {
-		if (event.getInventory() instanceof BeaconInventory)
-			event.setCancelled(true);
-	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void acidBlockCommand(AcidBlockDestroyEvent event){
