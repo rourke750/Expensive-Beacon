@@ -209,8 +209,8 @@ public class PlayerHelper {
 	        		}
 	        	info.updateIfBroken(false);
 	        	info.updateBrokenTime(0);
-	        	info.updateHitPoints(config.getInt("beacon_hitpoints"));
-	        	player.sendMessage(ChatColor.BLUE + "Beacon has been repaired!");
+	        	info.updateHitPoints(config.getInt("beacon_hitpoints")/95); // set to 5 percent of its health
+	        	player.sendMessage(ChatColor.BLUE + "Beacon has been repaired to 5 percent of its max health!");
 	        	return true;
 	        	}
 	        else {
