@@ -29,7 +29,7 @@ The structure will have certain hardpoints and depending where you start breakin
 
 Beacons have to be matured to be able to work.  This takes 24 hours.  While it is maturing it can be easily broken.  Once beacons are matured and broken again it goes into a 24 hour invulnerability mode where no blocks can be removed/ broken.  Potion effects continue to apply during this time.  After this 24 hour point the beacon structure no longer outputs potion effects and can be broken.
 
-Also while a beacon is in invulnerability time an owner/mod can run up to the beacon and type /eb_fix which will fix the beacon if you have the required materials.  This will instantly fix the beacon.  Also beacons auto repair every 72000 ticks about 5 percent of their maximum health.
+Also while a beacon is in invulnerability time an owner/mod can run up to the beacon and type /eb_fix which will fix the beacon if you have the required materials.  This will instantly fix the beacon to 5 percent of the maximum health.  Also beacons auto repair every 72000 ticks about 5 percent of their maximum health.
 
 Dev.Bukkit.org page
 ========
