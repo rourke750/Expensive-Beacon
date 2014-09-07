@@ -1,8 +1,10 @@
 package com.untamedears.rourke750.ExpensiveBeacons;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Block;
@@ -69,6 +71,7 @@ public class MultiBlockStructure {
 			}
 				else if(tier == 0 && type == null && sv.getBeaconInfo(loc) != null){
 					sv.removeBeaconInfo(sv.getBeaconInfo(loc).beaconid);
+					Bukkit.getLogger().log(Level.SEVERE, "Beacon failed to verify at " + loc.toString());
 				}
 		}
 	}
