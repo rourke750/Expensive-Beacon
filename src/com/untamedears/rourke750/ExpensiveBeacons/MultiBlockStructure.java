@@ -66,6 +66,9 @@ public class MultiBlockStructure {
 					in = sv.getBeaconInfo(locs);
 					if (in !=null) sv.removeBeaconInfo(in.beaconid);
 				}
+			}
+				else if(tier == 0 && type == null && sv.getBeaconInfo(loc) != null){
+					sv.removeBeaconInfo(sv.getBeaconInfo(loc).beaconid);
 				}
 		}
 	}
